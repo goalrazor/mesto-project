@@ -1,6 +1,7 @@
 .footer {
   margin: 67px auto 0;
-  padding-left: 200px;
-  padding-right: 200px;
+  padding-left: 19px;
+  padding-right: 19px;
+  max-width: 880px;
   color: #545454;
 }

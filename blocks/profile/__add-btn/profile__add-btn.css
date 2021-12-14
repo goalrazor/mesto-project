@@ -4,7 +4,6 @@
   box-sizing: border-box;
   border: 1px solid #fff;
   background-color: inherit;
-  margin-left: 224px;
   display: flex;
   transition: opacity .5s;
   cursor: pointer;

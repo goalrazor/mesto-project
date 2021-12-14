@@ -11,19 +11,32 @@
 
 <body>
   <div class="page">
+    <section class="popup popup_opened">
+      <div class="popup__container">
+        <div class="popup__close-btn"></div>
+        <form action="#" class="form">
+          <h2 class="form__heading">Редактировать профиль</h2>
+          <input class="form__text" type="text" name="name" placeholder="Имя" required>
+          <input class="form__text" type="text" name="desc" placeholder="О себе" required>
+          <input class="form__submit" type="submit" value="Сохранить">
+        </form>
+      </div>
+    </section>
     <header class="header">
       <img src="./images/logo.svg" alt="Место" class="header__logo">
       <hr class="header__underline">
     </header>
     <main class="content">
       <section class="profile">
-        <img src="./images/avatar_jak.jpg" alt="Аватар" class="profile__avatar">
-        <div class="profile__info">
-          <h2 class="profile__name">Жак-Ив Кусто</h2>
-          <button class="profile__edit-btn">
-            <span class="profile__edit-btn-icon"></span>
-          </button>
-          <p class="profile__desc">Исследователь океана</p>
+        <div class="profile__container">
+          <img src="./images/avatar_jak.jpg" alt="Аватар" class="profile__avatar">
+          <div class="profile__info">
+            <h2 class="profile__name">Жак-Ив Кусто</h2>
+            <button class="profile__edit-btn">
+              <span class="profile__edit-btn-icon"></span>
+            </button>
+            <p class="profile__desc">Исследователь океана</p>
+          </div>
         </div>
         <button class="profile__add-btn">
           <span class="profile__add-btn-icon"></span>
@@ -63,7 +76,6 @@
           </li>
         </ul>
       </section>
-
     </main>
     <footer class="footer">
       <p class="footer__copyright">&COPY; 2020 Mesto Russia</p>
