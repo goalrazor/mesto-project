@@ -6,11 +6,27 @@
   background-color: inherit;
   margin-left: 18px;
   align-self: flex-end;
-  margin-bottom: 7px;
+  margin-bottom: 15px;
   transition: opacity .5s;
   cursor: pointer;
 }
 
 .profile__edit-btn:hover {
   opacity: .6;
+}
+
+@media (max-width: 520px) {
+  .profile__edit-btn {
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 420px) {
+  .profile__edit-btn {
+    margin-left: 10px;
+    margin-right: 20px;
+    margin-bottom: 5px;
+    width: 18px;
+    height: 18px;
+  }
 }

@@ -1,4 +1,10 @@
 .profile__container {
   display: flex;
+}
 
+@media (max-width: 520px) {
+  .profile__container {
+    display: block;
+    margin: 0 auto;
+  }
 }

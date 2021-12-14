@@ -4,3 +4,12 @@
   height: 10px;
   float: left;
 }
+
+@media (max-width: 420px) {
+  .profile__edit-btn-icon {
+    width: 9px;
+    height: 9px;
+    position: relative;
+    left: -3px;
+  }
+}

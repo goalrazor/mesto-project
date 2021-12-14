@@ -6,7 +6,20 @@
   column-gap: 17px;
   row-gap: 20px;
   justify-content: center;
+  justify-items: center;
   margin: 0 auto;
   padding-left: 0;
   list-style: none;
+}
+
+@media (max-width: 920px) {
+  .cards__container {
+    grid-template-columns: repeat(2, minmax(282px, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .cards__container {
+    grid-template-columns: repeat(1, minmax(282px, 1fr));
+  }
 }

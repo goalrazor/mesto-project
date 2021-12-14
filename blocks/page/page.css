@@ -8,8 +8,9 @@
   color: #fff;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 420px) {
   .page {
     padding-top: 28px;
+    padding-bottom: 36px;
   }
 }

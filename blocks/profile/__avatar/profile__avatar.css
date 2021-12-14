@@ -3,3 +3,10 @@
   height: 120px;
   border-radius: 50%;
 }
+
+@media (max-width: 520px) {
+  .profile__avatar {
+    display: flex;
+    margin: 0 auto;
+  }
+}
