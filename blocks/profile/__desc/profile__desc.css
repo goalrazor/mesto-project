@@ -5,8 +5,9 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
-  margin: 16px auto 0 30px;
+  margin: 10px auto 0 30px;
   max-width: 336px;
+  align-self: flex-end;
 }
 
 @media (max-width: 420px) {

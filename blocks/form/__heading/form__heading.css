@@ -7,3 +7,12 @@
   color: #000;
   margin: 34px 0 24px;
 }
+
+@media (max-width: 540px) {
+  .form__heading {
+    font-size: 18px;
+    line-height: 22px;
+    margin-top: 25px;
+    margin-bottom: 45px;
+  }
+}
