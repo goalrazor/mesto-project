@@ -1,0 +1,6 @@
+.header__underline {
+  border-bottom: 1px solid #545454;
+  opacity: 0.7;
+  margin: 41px auto 0;
+  width: 100%;
+}

@@ -1,0 +1,6 @@
+.profile__edit-btn-icon {
+  background-image: url(../../../images/edit-btn_pen.svg);
+  width: 10px;
+  height: 10px;
+  float: left;
+}

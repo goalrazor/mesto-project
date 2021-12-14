@@ -1,0 +1,10 @@
+.profile__desc {
+  font-family: 'Inter', Arial, sans-serif;
+  color: #fff;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  margin: 16px auto 25px 30px;
+  width: 336px;
+}
