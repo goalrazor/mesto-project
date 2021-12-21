@@ -2,6 +2,5 @@
   display: flex;
   max-width: 366px;
   flex-wrap: wrap;
-  position: relative;
   margin-bottom: 20px;
 }

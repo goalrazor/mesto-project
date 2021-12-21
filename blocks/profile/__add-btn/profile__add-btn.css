@@ -3,11 +3,15 @@
   height: 50px;
   margin-left: 19px;
   box-sizing: border-box;
-  border: 1px solid #fff;
+  border: 2px solid #fff;
+  border-radius: 2px;
   background-color: inherit;
   display: flex;
   transition: opacity .5s;
   cursor: pointer;
+  background-image: url(../../../images/add-btn_plus.svg);
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .profile__add-btn:hover {

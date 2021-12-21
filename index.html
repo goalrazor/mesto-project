@@ -13,8 +13,8 @@
   <div class="page">
     <section class="popup popup_opened">
       <div class="popup__container">
-        <div class="popup__close-btn"></div>
-        <form action="#" class="form">
+        <button type="button" class="popup__close-btn"></button>
+        <form action="#" class="form" name="profile-form">
           <h2 class="form__heading">Редактировать профиль</h2>
           <input class="form__text" type="text" name="name" placeholder="Имя" required>
           <input class="form__text" type="text" name="desc" placeholder="О себе" required>
@@ -23,23 +23,22 @@
       </div>
     </section>
     <header class="header">
-      <img src="./images/logo.svg" alt="Место" class="header__logo">
-      <hr class="header__underline">
+      <div class="header__content">
+        <img src="./images/logo.svg" alt="Место" class="header__logo">
+      </div>
     </header>
     <main class="content">
       <section class="profile">
         <div class="profile__container">
           <img src="./images/avatar_jak.jpg" alt="Аватар" class="profile__avatar">
           <div class="profile__info">
-            <h2 class="profile__name">Жак-Ив Кусто</h2>
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
             <button class="profile__edit-btn">
-              <span class="profile__edit-btn-icon"></span>
             </button>
             <p class="profile__desc">Исследователь океана</p>
           </div>
         </div>
         <button class="profile__add-btn">
-          <span class="profile__add-btn-icon"></span>
         </button>
       </section>
       <section class="cards">
@@ -47,32 +46,32 @@
           <li class="card">
             <img src="./images/kirill-pershin-1088404-unsplash_karachaevsk.jpg" alt="Карачаевск" class="card__img">
             <h3 class="card__heading">Карачаевск</h3>
-            <div class="card__like-btn card__like-btn_status_active"></div>
+            <button class="card__like-btn card__like-btn_active"></button>
           </li>
           <li class="card">
             <img src="./images/kirill-pershin-1404681-unsplash_elbrus.png" alt="Эльбрус" class="card__img">
             <h3 class="card__heading">Гора Эльбрус</h3>
-            <div class="card__like-btn"></div>
+            <button class="card__like-btn"></button>
           </li>
           <li class="card">
             <img src="./images/kirill-pershin-1556355-unsplash_dombay.png" alt="Домбай" class="card__img">
             <h3 class="card__heading">Домбай</h3>
-            <div class="card__like-btn"></div>
+            <button class="card__like-btn"></button>
           </li>
           <li class="card">
             <img src="./images/kirill-pershin-1088404-unsplash_karachaevsk.jpg" alt="Карачаевск" class="card__img">
             <h3 class="card__heading">Карачаево-Черкессия</h3>
-            <div class="card__like-btn"></div>
+            <button class="card__like-btn"></button>
           </li>
           <li class="card">
             <img src="./images/kirill-pershin-1404681-unsplash_elbrus.png" alt="Эльбрус" class="card__img">
             <h3 class="card__heading">Гора Эльбрус</h3>
-            <div class="card__like-btn"></div>
+            <button class="card__like-btn"></button>
           </li>
           <li class="card">
             <img src="./images/kirill-pershin-1556355-unsplash_dombay.png" alt="Домбай" class="card__img">
             <h3 class="card__heading">Домбай</h3>
-            <div class="card__like-btn"></div>
+            <button class="card__like-btn"></button>
           </li>
         </ul>
       </section>

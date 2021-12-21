@@ -9,6 +9,9 @@
   margin-bottom: 10px;
   transition: opacity .5s;
   cursor: pointer;
+  background-image: url(../../../images/edit-btn_pen.svg);
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .profile__edit-btn:hover {
