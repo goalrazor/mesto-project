@@ -1,0 +1,11 @@
+.fullscreen-view__heading {
+  margin: 0;
+  margin-top: 10px;
+  font-family: inherit;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  background-color: transparent;
+  border: none;
+}

@@ -39,3 +39,7 @@
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__close-btn/popup__close-btn.css);
+@import url(../blocks/fullscreen-view/fullscreen-view.css);
+@import url(../blocks/fullscreen-view/__container/fullscreen-view__container.css);
+@import url(../blocks/fullscreen-view/__img/fullscreen-view__img.css);
+@import url(../blocks/fullscreen-view/__heading/fullscreen-view__heading.css);
