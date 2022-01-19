@@ -6,5 +6,7 @@
   position: fixed;
   top: 0px;
   z-index: 1;
-  display: none;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s linear;
 }
