@@ -1,5 +1,6 @@
 .fullscreen-view__img {
-  height: 100%;
+  max-height: 100%;
   border-radius: 0;
   border: none;
+  max-width: 100%;
 }

@@ -14,6 +14,8 @@ const addPlaceForm = popupAddPlace.querySelector('form');
 const addPlaceFormInputs = popupAddPlace.querySelectorAll('form .form__text');
 const fullscreenViewPopup = document.querySelector('.fullscreen-view');
 const closeFullscreenViewPopup = fullscreenViewPopup.querySelector('.popup__close-btn');
+const popupCardPicture = fullscreenViewPopup.querySelector('.fullscreen-view__img');
+let popupCardTitle = fullscreenViewPopup.querySelector('.fullscreen-view__heading');
 
 const initialCards = [
   {
@@ -43,16 +45,17 @@ const initialCards = [
 ];
 
 initialCards.forEach(el => {
-  addCard(el.link, el.name);
+  addCard(createCard(el.link, el.name));
 });
 
-function addCard(link, name) {
+function createCard(link, name) {
   const addPlaceFormInputs = popupAddPlace.querySelectorAll('form .form__text');
   const cardTemplate = document.querySelector('#card').content;
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+  const cardImg = cardElement.querySelector('.card__img');
 
-  cardElement.querySelector('.card__img').src = link;
-  cardElement.querySelector('.card__img').alt = name;
+  cardImg.src = link;
+  cardImg.alt = name;
   cardElement.querySelector('.card__heading').textContent = name;
 
   cardElement.querySelector('.card__like-btn').addEventListener('click', function (evt) {
@@ -63,14 +66,18 @@ function addCard(link, name) {
     evt.target.closest('.card').remove();
   });
 
+
   cardElement.querySelector('.card__img').addEventListener('click', function (evt) {
-    let imgLink = evt.target.src;
-    let heading = evt.target.alt;
-    fullscreenViewPopup.querySelector('.fullscreen-view__img').src = imgLink;
-    fullscreenViewPopup.querySelector('.fullscreen-view__heading').textContent = heading;
+    popupCardPicture.src = link;
+    popupCardPicture.alt = name;
+    popupCardTitle.textContent = name;
     openPopup(fullscreenViewPopup);
   })
 
+  return cardElement;
+}
+
+function addCard(cardElement) {
   cardsConatiner.prepend(cardElement);
 }
 
@@ -82,7 +89,7 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
 
-function profileFormSubmitHandler(evt) {
+function handleProfileForm(evt) {
   evt.preventDefault();
 
   profileName.textContent = editProfileFormInputs[0].value;
@@ -91,10 +98,10 @@ function profileFormSubmitHandler(evt) {
   closePopup(popupEditProfile);
 }
 
-function addPlaceFormSubmitHandler(evt) {
+function handleAddPlaceForm(evt) {
   evt.preventDefault();
 
-  addCard(addPlaceFormInputs[1].value, addPlaceFormInputs[0].value);
+  addCard(createCard(addPlaceFormInputs[1].value, addPlaceFormInputs[0].value));
 
   addPlaceFormInputs[1].value = '';
   addPlaceFormInputs[0].value = '';
@@ -124,6 +131,6 @@ closeFullscreenViewPopup.addEventListener('click', function () {
   closePopup(fullscreenViewPopup)
 });
 
-profileForm.addEventListener('submit', profileFormSubmitHandler);
+profileForm.addEventListener('submit', handleProfileForm);
 
-addPlaceForm.addEventListener('submit', addPlaceFormSubmitHandler);
+addPlaceForm.addEventListener('submit', handleAddPlaceForm);
