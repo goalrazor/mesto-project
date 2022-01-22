@@ -15,7 +15,7 @@ const addPlaceFormInputs = popupAddPlace.querySelectorAll('form .form__text');
 const fullscreenViewPopup = document.querySelector('.fullscreen-view');
 const closeFullscreenViewPopup = fullscreenViewPopup.querySelector('.popup__close-btn');
 const popupCardPicture = fullscreenViewPopup.querySelector('.fullscreen-view__img');
-let popupCardTitle = fullscreenViewPopup.querySelector('.fullscreen-view__heading');
+const popupCardTitle = fullscreenViewPopup.querySelector('.fullscreen-view__heading');
 
 const initialCards = [
   {
