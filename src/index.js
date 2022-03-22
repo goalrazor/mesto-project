@@ -1,3 +1,4 @@
+import './pages/index.css'
 const profileButton = document.querySelector('.profile__edit-btn');
 const popupEditProfile = document.querySelector('.popup_edit-profile');
 const closeEditProfilePopupButton = popupEditProfile.querySelector('.popup__close-btn');
