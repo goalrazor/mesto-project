@@ -1,0 +1,9 @@
+.form__text-error {
+  font-family: inherit;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  display: none;
+  color: #FF0000;
+}

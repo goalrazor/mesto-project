@@ -1,4 +1,6 @@
-import './pages/index.css'
+import '../pages/index.css'
+import {disableAllErrors, enableValidation} from "./validator";
+
 const profileButton = document.querySelector('.profile__edit-btn');
 const popupEditProfile = document.querySelector('.popup_edit-profile');
 const closeEditProfilePopupButton = popupEditProfile.querySelector('.popup__close-btn');
@@ -50,7 +52,6 @@ initialCards.forEach(el => {
 });
 
 function createCard(link, name) {
-  const addPlaceFormInputs = popupAddPlace.querySelectorAll('form .form__text');
   const cardTemplate = document.querySelector('#card').content;
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
   const cardImg = cardElement.querySelector('.card__img');
@@ -87,6 +88,7 @@ function openPopup(popup) {
 }
 
 function closePopup(popup) {
+  disableAllErrors();
   popup.classList.remove('popup_opened');
 }
 
@@ -111,7 +113,7 @@ function handleAddPlaceForm(evt) {
 }
 
 profileButton.addEventListener('click', function () {
-  openPopup(popupEditProfile)
+  openPopup(popupEditProfile);
   editProfileFormInputs[0].value = profileName.textContent;
   editProfileFormInputs[1].value = profileDescription.textContent;
 });
@@ -125,6 +127,8 @@ addPlaceButton.addEventListener('click', function () {
 });
 
 closeAddPlacePopupButton.addEventListener('click', function () {
+  addPlaceFormInputs[1].value = '';
+  addPlaceFormInputs[0].value = '';
   closePopup(popupAddPlace)
 });
 
@@ -135,3 +139,5 @@ closeFullscreenViewPopup.addEventListener('click', function () {
 profileForm.addEventListener('submit', handleProfileForm);
 
 addPlaceForm.addEventListener('submit', handleAddPlaceForm);
+
+enableValidation()

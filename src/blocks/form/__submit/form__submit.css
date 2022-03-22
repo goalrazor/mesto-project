@@ -1,15 +1,7 @@
 .form__submit {
   margin-top: 48px;
+  margin-bottom: 18px;
   height: 50px;
-  background-color: #000;
-  color: #fff;
-  border-radius: 2px;
-  border: none;
-  cursor: pointer;
-  font-size: 18px;
-  line-height: 22px;
-  text-align: center;
-  transition: opacity .5s;
 }
 
 .form__submit:hover {
@@ -18,8 +10,6 @@
 
 @media (max-width: 540px) {
   .form__submit {
-    font-size: 14px;
-    line-height: 17px;
     margin-top: 45px;
   }
 }

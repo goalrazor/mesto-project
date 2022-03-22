@@ -9,73 +9,86 @@
 </head>
 
 <body>
-  <div class="page">
-    <section class="popup popup_edit-profile">
-      <div class="popup__container">
-        <button type="button" class="popup__close-btn"></button>
-        <form action="#" class="form" name="profile-form">
-          <h2 class="form__heading">Редактировать профиль</h2>
-          <input class="form__text" type="text" name="name" placeholder="Имя" required>
-          <input class="form__text" type="text" name="desc" placeholder="О себе" required>
-          <input class="form__submit" type="submit" value="Сохранить">
-        </form>
-      </div>
-    </section>
-    <section class="popup popup_add-place">
-      <div class="popup__container">
-        <button type="button" class="popup__close-btn"></button>
-        <form action="#" class="form" name="add-place-form">
-          <h2 class="form__heading">Новое место</h2>
-          <input class="form__text" type="text" name="name" placeholder="Название" required>
-          <input class="form__text" type="text" name="desc" placeholder="Ссылка на картинку" required>
-          <input class="form__submit" type="submit" value="Создать">
-        </form>
-      </div>
-    </section>
-    <section class="popup fullscreen-view">
-      <div class="popup__container fullscreen-view__container">
-        <button type="button" class="popup__close-btn"></button>
-        <img src="#" alt="" class="fullscreen-view__img">
-        <h3 class="fullscreen-view__heading"></h3>
-      </div>
-    </section>
-    <header class="header">
-      <div class="header__content">
-        <img src="<%=require('./images/logo.svg')%>" alt="Место" class="header__logo">
-      </div>
-    </header>
-    <main class="content">
-      <section class="profile">
-        <div class="profile__container">
-          <img src="<%=require('./images/avatar_jak.jpg')%>" alt="Аватар" class="profile__avatar">
-          <div class="profile__info">
-            <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <button class="profile__edit-btn" type="button">
-            </button>
-            <p class="profile__desc">Исследователь океана</p>
-          </div>
+<div class="page">
+  <section class="popup popup_edit-profile">
+    <div class="popup__container">
+      <button type="button" class="popup__close-btn"></button>
+      <form action="#" class="form" name="profile-form">
+        <h2 class="form__heading">Редактировать профиль</h2>
+        <label class="form__field">
+          <input id="profile-name" class="form__text" type="text" name="name" placeholder="Имя" required minlength="2">
+          <span class="form__text-error profile-name-error"></span>
+        </label>
+        <label class="form__field">
+          <input id="profile-desc" class="form__text" type="text" name="desc" placeholder="О себе" required>
+          <span class="form__text-error profile-desc-error"></span>
+        </label>
+        <input class="form__submit button" type="submit" value="Сохранить">
+      </form>
+    </div>
+  </section>
+  <section class="popup popup_add-place">
+    <div class="popup__container">
+      <button type="button" class="popup__close-btn"></button>
+      <form action="#" class="form" name="add-place-form">
+        <h2 class="form__heading">Новое место</h2>
+        <label class="form__field">
+          <input id="place-name" class="form__text" type="text" name="name" placeholder="Название" required
+                 minlength="2">
+          <span class="form__text-error place-name-error"></span>
+        </label>
+        <label class="form__field">
+          <input id="place-url" class="form__text" type="url" name="url" placeholder="Ссылка на картинку" required>
+          <span class="form__text-error place-url-error"></span>
+        </label>
+        <input class="form__submit button" type="submit" value="Создать">
+      </form>
+    </div>
+  </section>
+  <section class="popup fullscreen-view">
+    <div class="popup__container fullscreen-view__container">
+      <button type="button" class="popup__close-btn"></button>
+      <img src="#" alt="" class="fullscreen-view__img">
+      <h3 class="fullscreen-view__heading"></h3>
+    </div>
+  </section>
+  <header class="header">
+    <div class="header__content">
+      <img src="<%=require('./images/logo.svg')%>" alt="Место" class="header__logo">
+    </div>
+  </header>
+  <main class="content">
+    <section class="profile">
+      <div class="profile__container">
+        <img src="<%=require('./images/avatar_jak.jpg')%>" alt="Аватар" class="profile__avatar">
+        <div class="profile__info">
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <button class="profile__edit-btn" type="button">
+          </button>
+          <p class="profile__desc">Исследователь океана</p>
         </div>
-        <button class="profile__add-btn" type="button">
-        </button>
-      </section>
-      <section class="cards">
-        <ul class="cards__container">
+      </div>
+      <button class="profile__add-btn" type="button">
+      </button>
+    </section>
+    <section class="cards">
+      <ul class="cards__container">
 
-        </ul>
-      </section>
-    </main>
-    <footer class="footer">
-      <p class="footer__copyright">&COPY; 2020 Mesto Russia</p>
-    </footer>
-  </div>
-  <template id="card">
-    <li class="card">
-      <button class="card__delete-btn" type="button"></button>
-      <img src="#" alt="" class="card__img">
-      <h3 class="card__heading"></h3>
-      <button class="card__like-btn" type="button"></button>
-    </li>
-  </template>
+      </ul>
+    </section>
+  </main>
+  <footer class="footer">
+    <p class="footer__copyright">&COPY; 2020 Mesto Russia</p>
+  </footer>
+</div>
+<template id="card">
+  <li class="card">
+    <button class="card__delete-btn" type="button"></button>
+    <img src="#" alt="" class="card__img">
+    <h3 class="card__heading"></h3>
+    <button class="card__like-btn" type="button"></button>
+  </li>
+</template>
 </body>
 
 </html>
