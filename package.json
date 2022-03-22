@@ -1,0 +1,22 @@
+{
+  "name": "mesto-project",
+  "version": "0.0.1",
+  "description": "**Проект социальная сеть для путешественников** ### Обзор",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goalrazor/mesto-project.git"
+  },
+  "author": "Alexander Golikov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/goalrazor/mesto-project/issues"
+  },
+  "homepage": "https://github.com/goalrazor/mesto-project#readme",
+  "devDependencies": {
+    "webpack": "^5.70.0"
+  }
+}
