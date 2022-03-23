@@ -9,14 +9,6 @@ const profileSection = document.querySelector('.profile');
 const profileName = profileSection.querySelector('.profile__name');
 const profileDescription = profileSection.querySelector('.profile__desc');
 
-
-function handleProfileForm(evt) {
-  evt.preventDefault();
-  profileName.textContent = editProfileFormInputs[0].value;
-  profileDescription.textContent = editProfileFormInputs[1].value;
-  closePopup(popupEditProfile);
-}
-
 export const setProfileListeners = () => {
   profileButton.addEventListener('click', function () {
     openPopup(popupEditProfile);
@@ -30,3 +22,11 @@ export const setProfileListeners = () => {
 
   profileForm.addEventListener('submit', handleProfileForm);
 }
+
+function handleProfileForm(evt) {
+  evt.preventDefault();
+  profileName.textContent = editProfileFormInputs[0].value;
+  profileDescription.textContent = editProfileFormInputs[1].value;
+  closePopup(popupEditProfile);
+}
+

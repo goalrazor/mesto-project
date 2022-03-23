@@ -1,5 +1,6 @@
 import {addCard, createCard} from "./cards";
 import {closePopup, openPopup} from "./modals";
+import {disableButton} from "./validate";
 
 const popupAddPlace = document.querySelector('.popup_add-place');
 const closeAddPlacePopupButton = popupAddPlace.querySelector('.popup__close-btn');
@@ -14,13 +15,16 @@ function handleAddPlaceForm(evt) {
 
   addPlaceFormInputs[1].value = '';
   addPlaceFormInputs[0].value = '';
+  const submitButton = addPlaceForm.querySelector('.form__submit');
+  console.log(submitButton)
+  disableButton(submitButton);
 
   closePopup(popupAddPlace);
 }
 
 export const setAddPlaceListeners = () => {
   addPlaceButton.addEventListener('click', function () {
-    openPopup(popupAddPlace)
+    openPopup(popupAddPlace);
   });
 
   closeAddPlacePopupButton.addEventListener('click', function () {
