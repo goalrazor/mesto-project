@@ -1,6 +1,5 @@
 .fullscreen-view__container {
-  max-width: 75vw;
-  max-height: 75vh;
+  width: auto;
   border-radius: 0;
   background-color: transparent;
 }

@@ -1,4 +1,5 @@
 import {closePopup, openPopup} from "./modals";
+import {disableButton} from "./validate";
 
 const profileButton = document.querySelector('.profile__edit-btn');
 const popupEditProfile = document.querySelector('.popup_edit-profile');
@@ -14,6 +15,8 @@ export const setProfileListeners = () => {
     openPopup(popupEditProfile);
     editProfileFormInputs[0].value = profileName.textContent;
     editProfileFormInputs[1].value = profileDescription.textContent;
+    const submitButton = profileForm.querySelector('.form__submit');
+    disableButton(submitButton);
   });
 
   closeEditProfilePopupButton.addEventListener('click', function () {
