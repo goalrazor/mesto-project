@@ -16,7 +16,6 @@ function handleAddPlaceForm(evt) {
   addPlaceFormInputs[1].value = '';
   addPlaceFormInputs[0].value = '';
   const submitButton = addPlaceForm.querySelector('.form__submit');
-  console.log(submitButton)
   disableButton(submitButton);
 
   closePopup(popupAddPlace);

@@ -22,6 +22,7 @@ export function createCard(link, name) {
     evt.target.closest('.card').remove();
   });
 
+  cardElement.setAttribute("tabindex", 0);
   cardElement.querySelector('.card__img').addEventListener('click', function (evt) {
     handleFullScreenImage(link, name);
   })

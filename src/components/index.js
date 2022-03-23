@@ -5,8 +5,8 @@ import {setProfileListeners} from "./profilePopup";
 import {setAddPlaceListeners} from "./addPlacePopup";
 
 drawInitialCards();
-setProfileListeners()
-setAddPlaceListeners()
+setProfileListeners();
+setAddPlaceListeners();
 
 enableValidation({
   formSelector: '.form',

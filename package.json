@@ -2,7 +2,7 @@
   "name": "mesto-project",
   "version": "0.0.1",
   "description": "**Проект социальная сеть для путешественников** ### Обзор",
-  "main": "src/modules/index.js",
+  "main": "src/components/index.js",
   "scripts": {
     "build": "webpack --mode production",
     "dev": "webpack serve"
