@@ -1,23 +1,22 @@
 import {addCard, createCard} from "./cards";
 import {closePopup, openPopup} from "./modals";
-import {disableButton} from "./validate";
+import {disableAllErrors, disableButton} from "./validate";
 
 const popupAddPlace = document.querySelector('.popup_add-place');
 const closeAddPlacePopupButton = popupAddPlace.querySelector('.popup__close-btn');
-const addPlaceForm = popupAddPlace.querySelector('form');
-const addPlaceFormInputs = popupAddPlace.querySelectorAll('form .form__text');
+const addPlaceForm = document.forms['add-place-form'];
 const addPlaceButton = document.querySelector('.profile__add-btn');
 
 function handleAddPlaceForm(evt) {
   evt.preventDefault();
 
-  addCard(createCard(addPlaceFormInputs[1].value, addPlaceFormInputs[0].value));
+  addCard(createCard(addPlaceForm['place-url'].value, addPlaceForm['place-name'].value));
 
-  addPlaceFormInputs[1].value = '';
-  addPlaceFormInputs[0].value = '';
+  addPlaceForm['place-name'].value = '';
+  addPlaceForm['place-url'].value = '';
   const submitButton = addPlaceForm.querySelector('.form__submit');
   disableButton(submitButton);
-
+  disableAllErrors();
   closePopup(popupAddPlace);
 }
 
@@ -27,8 +26,9 @@ export const setAddPlaceListeners = () => {
   });
 
   closeAddPlacePopupButton.addEventListener('click', function () {
-    addPlaceFormInputs[1].value = '';
-    addPlaceFormInputs[0].value = '';
+    addPlaceForm['place-name'].value = '';
+    addPlaceForm['place-url'].value = '';
+    disableAllErrors();
     closePopup(popupAddPlace)
   });
 

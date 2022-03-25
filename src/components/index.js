@@ -3,10 +3,12 @@ import {enableValidation} from "./validate";
 import {drawInitialCards} from "./initialCards";
 import {setProfileListeners} from "./profilePopup";
 import {setAddPlaceListeners} from "./addPlacePopup";
+import {setListenerToFullScreenImage} from "./fullScreenPopup";
 
 drawInitialCards();
 setProfileListeners();
 setAddPlaceListeners();
+setListenerToFullScreenImage();
 
 enableValidation({
   formSelector: '.form',

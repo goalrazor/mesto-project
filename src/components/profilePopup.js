@@ -1,11 +1,10 @@
 import {closePopup, openPopup} from "./modals";
-import {disableButton} from "./validate";
+import {disableAllErrors, disableButton} from "./validate";
 
 const profileButton = document.querySelector('.profile__edit-btn');
 const popupEditProfile = document.querySelector('.popup_edit-profile');
 const closeEditProfilePopupButton = popupEditProfile.querySelector('.popup__close-btn');
-const profileForm = popupEditProfile.querySelector('form');
-const editProfileFormInputs = popupEditProfile.querySelectorAll('form .form__text');
+const profileForm = document.forms['profile-form'];
 const profileSection = document.querySelector('.profile');
 const profileName = profileSection.querySelector('.profile__name');
 const profileDescription = profileSection.querySelector('.profile__desc');
@@ -13,13 +12,14 @@ const profileDescription = profileSection.querySelector('.profile__desc');
 export const setProfileListeners = () => {
   profileButton.addEventListener('click', function () {
     openPopup(popupEditProfile);
-    editProfileFormInputs[0].value = profileName.textContent;
-    editProfileFormInputs[1].value = profileDescription.textContent;
+    profileForm['profile-name'].value = profileName.textContent;
+    profileForm['profile-desc'].value = profileDescription.textContent;
     const submitButton = profileForm.querySelector('.form__submit');
     disableButton(submitButton);
   });
 
   closeEditProfilePopupButton.addEventListener('click', function () {
+    disableAllErrors();
     closePopup(popupEditProfile)
   });
 
@@ -28,8 +28,9 @@ export const setProfileListeners = () => {
 
 function handleProfileForm(evt) {
   evt.preventDefault();
-  profileName.textContent = editProfileFormInputs[0].value;
-  profileDescription.textContent = editProfileFormInputs[1].value;
+  profileName.textContent = profileForm['profile-name'].value;
+  profileDescription.textContent = profileForm['profile-desc'].value
+  disableAllErrors();
   closePopup(popupEditProfile);
 }
 

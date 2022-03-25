@@ -10,6 +10,9 @@ export function handleFullScreenImage(link, name) {
   popupCardPicture.alt = name;
   popupCardTitle.textContent = name;
   openPopup(fullscreenViewPopup);
+}
+
+export function setListenerToFullScreenImage() {
   closeFullscreenViewPopup.addEventListener('click', function () {
     closePopup(fullscreenViewPopup)
   });

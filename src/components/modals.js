@@ -1,5 +1,3 @@
-import {disableAllErrors} from "./validate";
-
 const page = document.querySelector('.page');
 
 export function openPopup(popup) {
@@ -8,37 +6,32 @@ export function openPopup(popup) {
 }
 
 export function closePopup(popup) {
-  disableAllErrors();
   popup.classList.remove('popup_opened');
   deleteCloseListeners();
 }
 
 const escapeListener = (evt) => {
-  const popupList = page.querySelectorAll('.popup');
-  popupList.forEach((popup) => {
-    if (evt.key === 'Escape') {
-      closePopup(popup);
-    }
-  })
+  const openedPopup = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape') {
+    closePopup(openedPopup);
+  }
 }
 
 const overlayListener = (evt) => {
-  const popupList = page.querySelectorAll('.popup');
-  popupList.forEach((popup) => {
-    if (!evt.target.classList.contains('popup__container') &&
-      evt.target.classList.contains('popup')) {
-      closePopup(popup)
-    }
-  })
+  const openedPopup = document.querySelector('.popup_opened');
+  if (!evt.target.classList.contains('popup__container') &&
+    evt.target.classList.contains('popup')) {
+    closePopup(openedPopup)
+  }
 }
 
 const addCloseListeners = () => {
-  page.addEventListener('click', overlayListener);
+  page.addEventListener('mousedown', overlayListener);
   page.addEventListener('keydown', escapeListener);
 }
 
 const deleteCloseListeners = () => {
-  page.removeEventListener('click', overlayListener);
+  page.removeEventListener('mousedown', overlayListener);
   page.removeEventListener('keydown', escapeListener);
 }
 
