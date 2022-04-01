@@ -1,11 +1,11 @@
 import '../pages/index.css'
 import {enableValidation} from "./validate";
-import {drawInitialCards} from "./initialCards";
-import {setProfileListeners} from "./profilePopup";
+import {getProfileInfoFromServer, setProfileListeners} from "./profilePopup";
 import {setAddPlaceListeners} from "./addPlacePopup";
 import {setListenerToFullScreenImage} from "./fullScreenPopup";
+import {drawCards} from "./cards";
 
-drawInitialCards();
+drawCards();
 setProfileListeners();
 setAddPlaceListeners();
 setListenerToFullScreenImage();
@@ -19,3 +19,5 @@ enableValidation({
   inputErrorClass: 'form__text_type_error',
   errorClass: 'form__text-error_active'
 });
+
+getProfileInfoFromServer();
