@@ -4,9 +4,6 @@
   height: 19px;
   transition: opacity .5s;
   cursor: pointer;
-  display: flex;
-  align-self: center;
-  margin-left: auto;
   margin-right: 20px;
   background-color: transparent;
   cursor: pointer;

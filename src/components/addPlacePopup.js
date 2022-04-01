@@ -10,7 +10,6 @@ const addPlaceButton = document.querySelector('.profile__add-btn');
 
 function handleAddPlaceForm(evt) {
   evt.preventDefault();
-  let cardId = '';
   request('POST', 'cards',
     {
       link: addPlaceForm['place-url'].value,
@@ -18,10 +17,9 @@ function handleAddPlaceForm(evt) {
     })
     .then(r => r.json())
     .then((r) => {
-      cardId = r._id;
+      addCard(createCard(r));
     })
 
-  addCard(createCard(addPlaceForm['place-url'].value, addPlaceForm['place-name'].value, true, cardId));
 
   addPlaceForm['place-name'].value = '';
   addPlaceForm['place-url'].value = '';
