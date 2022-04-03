@@ -4,6 +4,7 @@ import {getProfileInfoFromServer, setProfileListeners} from "./profilePopup";
 import {setAddPlaceListeners} from "./addPlacePopup";
 import {setListenerToFullScreenImage} from "./fullScreenPopup";
 import {drawCards} from "./cards";
+import {setAvatarListeners} from "./avatarPopup";
 
 drawCards();
 setProfileListeners();
@@ -21,3 +22,4 @@ enableValidation({
 });
 
 getProfileInfoFromServer();
+setAvatarListeners();
