@@ -5,7 +5,6 @@ const cardsContainer = document.querySelector('.cards .cards__container');
 let authorName = ''
 
 request('GET', 'users/me')
-  .then(r => r.json())
   .then((data) => {
     authorName = data.name;
   });
@@ -29,14 +28,16 @@ export function createCard(card) {
   likeBtn.addEventListener('click', function (evt) {
     if (evt.target.classList.contains('card__like-btn_active')) {
       evt.target.classList.remove('card__like-btn_active')
-      request('DELETE', `cards/likes/${card._id}`).then(r => r.json()).then((card) => {
-        cardLikesCountElement.textContent = card.likes.length;
-      });
+      request('DELETE', `cards/likes/${card._id}`)
+        .then((card) => {
+          cardLikesCountElement.textContent = card.likes.length;
+        });
     } else {
       evt.target.classList.add('card__like-btn_active')
-      request('PUT', `cards/likes/${card._id}`).then(r => r.json()).then((card) => {
-        cardLikesCountElement.textContent = card.likes.length;
-      });
+      request('PUT', `cards/likes/${card._id}`)
+        .then((card) => {
+          cardLikesCountElement.textContent = card.likes.length;
+        });
     }
   });
 
@@ -71,7 +72,7 @@ function updateLikes(card, cardLikesCountElement, likeBtn) {
 }
 
 export const drawCards = () => {
-  request('GET', 'cards').then(r => r.json()).then((data) => {
+  request('GET', 'cards').then((data) => {
     console.log(data)
     data.reverse().forEach(card => {
       addCard(createCard(card));

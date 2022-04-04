@@ -7,3 +7,12 @@ export function polymorph() {
     return len2func[arguments.length].apply(this, arguments);
   }
 }
+
+export function renderSubmitBtnLoading(element, isLoading, normalSubmitText) {
+  const loadingText = 'Сохранение...';
+  if (isLoading) {
+    element.value = loadingText;
+  } else {
+    element.value = normalSubmitText;
+  }
+}
