@@ -2,11 +2,11 @@ import {handleFullScreenImage} from "./fullScreenPopup.js";
 import {request} from "./requests";
 
 const cardsContainer = document.querySelector('.cards .cards__container');
-let authorName = ''
+let authorId = ''
 
 request('GET', 'users/me')
   .then((data) => {
-    authorName = data.name;
+    authorId = data._id;
   });
 
 export function addCard(cardElement) {
@@ -63,7 +63,7 @@ export function createCard(card) {
 function updateLikes(card, cardLikesCountElement, likeBtn) {
   card.likes.forEach((likeAuthor) => {
     cardLikesCountElement.textContent = card.likes.length;
-    if (likeAuthor.name === authorName) {
+    if (likeAuthor._id === authorId) {
       likeBtn.classList.add('card__like-btn_active');
     } else {
       likeBtn.classList.remove('card__like-btn_active');
