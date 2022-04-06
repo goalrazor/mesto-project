@@ -7,6 +7,15 @@ import {setAvatarListeners} from "./avatarPopup";
 import {addCard, createCard} from "./cards";
 
 const profileSection = document.querySelector('.profile');
+export const options = {
+  formSelector: '.form',
+  formField: '.form__field',
+  inputSelector: '.form__text',
+  submitButtonSelector: '.form__submit',
+  inactiveButtonClass: 'button_inactive',
+  inputErrorClass: 'form__text_type_error',
+  errorClass: 'form__text-error_active'
+}
 export const profileName = profileSection.querySelector('.profile__name');
 export const profileDescription = profileSection.querySelector('.profile__desc');
 export const profileAvatar = profileSection.querySelector('.profile__avatar')
@@ -38,15 +47,7 @@ loadContentFromServer();
 setProfileListeners();
 setAddPlaceListeners();
 
-enableValidation({
-  formSelector: '.form',
-  formField: '.form__field',
-  inputSelector: '.form__text',
-  submitButtonSelector: '.form__submit',
-  inactiveButtonClass: 'button_inactive',
-  inputErrorClass: 'form__text_type_error',
-  errorClass: 'form__text-error_active'
-});
+enableValidation(options);
 
 getProfileInfoFromServer();
 setAvatarListeners();

@@ -55,7 +55,7 @@ export function createCard(card) {
   }
 
   cardElement.setAttribute("tabindex", 0);
-  cardImg.addEventListener('click', function (evt) {
+  cardImg.addEventListener('click', function () {
     handleFullScreenImage(card.link, card.name);
   })
 

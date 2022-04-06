@@ -1,7 +1,7 @@
 import {closePopup, openPopup} from "./modals";
 import {disableAllErrors, disableButton} from "./validate";
 import {renderSubmitBtnLoading} from "./utils";
-import {profileDescription, profileName} from "./index";
+import {options, profileDescription, profileName} from "./index";
 import {updateUserInfo} from "./api";
 
 const profileButton = document.querySelector('.profile__edit-btn');
@@ -15,13 +15,13 @@ export const setProfileListeners = () => {
     profileForm['profile-name'].value = profileName.textContent;
     profileForm['profile-desc'].value = profileDescription.textContent;
     const submitButton = profileForm.querySelector('.form__submit');
-    disableButton(submitButton);
+    disableButton(submitButton, options);
   });
 
   profileForm.addEventListener('submit', handleProfileForm);
 }
 
-function handleProfileForm(evt) {
+function handleProfileForm() {
   const submitText = 'Сохранить';
   renderSubmitBtnLoading(profileSubmit, true, submitText);
   updateUserInfo(
@@ -36,6 +36,6 @@ function handleProfileForm(evt) {
     .finally(() => renderSubmitBtnLoading(profileSubmit, false, submitText))
     .catch(err => console.error(err));
 
-  disableAllErrors();
+  disableAllErrors(options);
   closePopup(popupEditProfile);
 }
