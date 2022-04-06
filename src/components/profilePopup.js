@@ -1,24 +1,13 @@
 import {closePopup, openPopup} from "./modals";
 import {disableAllErrors, disableButton} from "./validate";
-import {request} from "./requests";
 import {renderSubmitBtnLoading} from "./utils";
 import {profileDescription, profileName} from "./index";
+import {updateUserInfo} from "./api";
 
 const profileButton = document.querySelector('.profile__edit-btn');
 const popupEditProfile = document.querySelector('.popup_edit-profile');
 const profileForm = document.forms['profile-form'];
 const profileSubmit = popupEditProfile.querySelector('.button')
-// let authorId = ''
-
-// export function getProfileInfoFromServer() {
-//   return request('GET', 'users/me')
-// .then((data) => {
-//   profileName.textContent = data.name;
-//   profileDescription.textContent = data.about;
-//   profileAvatar.style.backgroundImage = `url(` + data.avatar + `)`;
-//   authorId = data._id;
-// })
-// }
 
 export const setProfileListeners = () => {
   profileButton.addEventListener('click', function () {
@@ -35,7 +24,7 @@ export const setProfileListeners = () => {
 function handleProfileForm(evt) {
   const submitText = 'Сохранить';
   renderSubmitBtnLoading(profileSubmit, true, submitText);
-  request('PATCH', 'users/me',
+  updateUserInfo(
     {
       name: profileForm['profile-name'].value,
       about: profileForm['profile-desc'].value
@@ -44,7 +33,8 @@ function handleProfileForm(evt) {
       profileName.textContent = data.name;
       profileDescription.textContent = data.about;
     })
-    .finally(() => renderSubmitBtnLoading(profileSubmit, false, submitText));
+    .finally(() => renderSubmitBtnLoading(profileSubmit, false, submitText))
+    .catch(err => console.error(err));
 
   disableAllErrors();
   closePopup(popupEditProfile);

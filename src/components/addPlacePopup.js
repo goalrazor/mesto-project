@@ -1,7 +1,7 @@
 import {addCard, createCard} from "./cards";
 import {closePopup, openPopup} from "./modals";
 import {disableAllErrors, disableButton} from "./validate";
-import {request} from "./requests";
+import {postNewCard} from "./api";
 import {renderSubmitBtnLoading} from "./utils";
 
 const popupAddPlace = document.querySelector('.popup_add-place');
@@ -12,7 +12,7 @@ function handleAddPlaceForm(evt) {
   const submitButton = addPlaceForm.querySelector('.form__submit');
   const submitText = 'Создать';
   renderSubmitBtnLoading(submitButton, true, submitText);
-  request('POST', 'cards',
+  postNewCard(
     {
       link: addPlaceForm['place-url'].value,
       name: addPlaceForm['place-name'].value
@@ -27,7 +27,8 @@ function handleAddPlaceForm(evt) {
       disableAllErrors();
       closePopup(popupAddPlace);
     })
-    .finally(() => renderSubmitBtnLoading(submitButton, true, submitText));
+    .finally(() => renderSubmitBtnLoading(submitButton, true, submitText))
+    .catch(err => console.error(err));
 }
 
 export const setAddPlaceListeners = () => {

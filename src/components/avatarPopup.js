@@ -1,5 +1,5 @@
 import {closePopup, openPopup} from "./modals";
-import {request} from "./requests";
+import {updateUserAvatar} from "./api";
 import {renderSubmitBtnLoading} from "./utils";
 
 const avatarButton = document.querySelector('.profile__avatar')
@@ -10,7 +10,7 @@ const avatarForm = document.forms['avatar-edit-form'];
 function handleAvatarForm(evt) {
   const submitText = 'Сохранить';
   renderSubmitBtnLoading(submitButton, true, submitText);
-  request('PATCH', 'users/me/avatar',
+  updateUserAvatar(
     {
       avatar: avatarForm['avatar-url'].value
     })
@@ -24,6 +24,7 @@ function handleAvatarForm(evt) {
     .finally(() => {
       renderSubmitBtnLoading(submitButton, false, submitText)
     })
+    .catch(err => console.error(err))
 }
 
 export const setAvatarListeners = () => {

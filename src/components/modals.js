@@ -33,7 +33,6 @@ const handleEscape = (evt) => {
 }
 
 const addCloseListeners = () => {
-  // handleClose();
   page.addEventListener('mousedown', handleClose);
   page.addEventListener('keydown', handleEscape);
 }

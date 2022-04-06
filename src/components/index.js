@@ -2,7 +2,7 @@ import '../pages/index.css'
 import {enableValidation} from "./validate";
 import {setProfileListeners} from "./profilePopup";
 import {setAddPlaceListeners} from "./addPlacePopup";
-import {getCards, getProfileInfoFromServer} from "./requests";
+import {getCards, getProfileInfoFromServer} from "./api";
 import {setAvatarListeners} from "./avatarPopup";
 import {addCard, createCard} from "./cards";
 

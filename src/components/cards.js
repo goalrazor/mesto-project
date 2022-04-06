@@ -1,5 +1,5 @@
 import {handleFullScreenImage} from "./fullScreenPopup.js";
-import {request} from "./requests";
+import {addLikeOnCard, deleteCard, deleteLikeOnCard} from "./api";
 import {authorId} from "./index";
 
 const cardsContainer = document.querySelector('.cards .cards__container');
@@ -22,7 +22,7 @@ export function createCard(card) {
 
   likeBtn.addEventListener('click', function (evt) {
     if (evt.target.classList.contains('card__like-btn_active')) {
-      request('DELETE', `cards/likes/${card._id}`)
+      deleteLikeOnCard(card._id)
         .then((card) => {
           cardLikesCountElement.textContent = card.likes.length;
         })
@@ -31,7 +31,7 @@ export function createCard(card) {
         })
         .catch(err => console.error(err));
     } else {
-      request('PUT', `cards/likes/${card._id}`)
+      addLikeOnCard(card._id)
         .then((card) => {
           cardLikesCountElement.textContent = card.likes.length;
         })
@@ -46,7 +46,7 @@ export function createCard(card) {
   if (card.owner._id === authorId) {
     deleteButton.addEventListener('click', function (evt) {
       const cardElement = evt.target.closest('.card');
-      request('DELETE', `cards/${card._id}`)
+      deleteCard(card._id)
         .then(() => cardElement.remove())
         .catch((err) => console.error(err));
     });
@@ -72,4 +72,3 @@ function updateLikes(card, cardLikesCountElement, likeBtn) {
     }
   })
 }
-
