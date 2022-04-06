@@ -2,14 +2,12 @@ import '../pages/index.css'
 import {enableValidation} from "./validate";
 import {getProfileInfoFromServer, setProfileListeners} from "./profilePopup";
 import {setAddPlaceListeners} from "./addPlacePopup";
-import {setListenerToFullScreenImage} from "./fullScreenPopup";
 import {drawCards} from "./cards";
 import {setAvatarListeners} from "./avatarPopup";
 
 drawCards();
 setProfileListeners();
 setAddPlaceListeners();
-setListenerToFullScreenImage();
 
 enableValidation({
   formSelector: '.form',
