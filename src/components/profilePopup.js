@@ -2,24 +2,23 @@ import {closePopup, openPopup} from "./modals";
 import {disableAllErrors, disableButton} from "./validate";
 import {request} from "./requests";
 import {renderSubmitBtnLoading} from "./utils";
+import {profileDescription, profileName} from "./index";
 
 const profileButton = document.querySelector('.profile__edit-btn');
 const popupEditProfile = document.querySelector('.popup_edit-profile');
 const profileForm = document.forms['profile-form'];
-const profileSection = document.querySelector('.profile');
-const profileName = profileSection.querySelector('.profile__name');
-const profileDescription = profileSection.querySelector('.profile__desc');
-const profileAvatar = profileSection.querySelector('.profile__avatar')
 const profileSubmit = popupEditProfile.querySelector('.button')
+// let authorId = ''
 
-export function getProfileInfoFromServer() {
-  request('GET', 'users/me')
-    .then((data) => {
-      profileName.textContent = data.name;
-      profileDescription.textContent = data.about;
-      profileAvatar.style.backgroundImage = `url(` + data.avatar + `)`;
-    })
-}
+// export function getProfileInfoFromServer() {
+//   return request('GET', 'users/me')
+// .then((data) => {
+//   profileName.textContent = data.name;
+//   profileDescription.textContent = data.about;
+//   profileAvatar.style.backgroundImage = `url(` + data.avatar + `)`;
+//   authorId = data._id;
+// })
+// }
 
 export const setProfileListeners = () => {
   profileButton.addEventListener('click', function () {

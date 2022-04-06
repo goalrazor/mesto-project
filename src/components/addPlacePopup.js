@@ -21,8 +21,8 @@ function handleAddPlaceForm(evt) {
       addCard(createCard(newCard));
     })
     .then(() => {
-      addPlaceForm['place-name'].reset();
-      addPlaceForm['place-url'].reset();
+      addPlaceForm['place-name'].value = '';
+      addPlaceForm['place-url'].value = '';
       disableButton(submitButton);
       disableAllErrors();
       closePopup(popupAddPlace);

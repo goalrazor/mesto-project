@@ -71,11 +71,3 @@ function updateLikes(card, cardLikesCountElement, likeBtn) {
   })
 }
 
-export const drawCards = () => {
-  request('GET', 'cards').then((data) => {
-    console.log(data)
-    data.reverse().forEach(card => {
-      addCard(createCard(card));
-    });
-  });
-}

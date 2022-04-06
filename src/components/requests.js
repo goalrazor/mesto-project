@@ -41,3 +41,12 @@ export const request = polymorph(
       });
   }
 );
+
+export function getProfileInfoFromServer() {
+  return request('GET', 'users/me')
+}
+
+export function getCards() {
+  return request('GET', 'cards')
+}
+
