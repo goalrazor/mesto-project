@@ -1,13 +1,8 @@
 import {handleFullScreenImage} from "./fullScreenPopup.js";
 import {request} from "./requests";
+import {authorId} from "./index";
 
 const cardsContainer = document.querySelector('.cards .cards__container');
-let authorId = ''
-
-request('GET', 'users/me')
-  .then((data) => {
-    authorId = data._id;
-  });
 
 export function addCard(cardElement) {
   cardsContainer.prepend(cardElement);
@@ -27,33 +22,40 @@ export function createCard(card) {
 
   likeBtn.addEventListener('click', function (evt) {
     if (evt.target.classList.contains('card__like-btn_active')) {
-      evt.target.classList.remove('card__like-btn_active')
       request('DELETE', `cards/likes/${card._id}`)
         .then((card) => {
           cardLikesCountElement.textContent = card.likes.length;
-        });
+        })
+        .then(() => {
+          evt.target.classList.remove('card__like-btn_active')
+        })
+        .catch(err => console.error(err));
     } else {
-      evt.target.classList.add('card__like-btn_active')
       request('PUT', `cards/likes/${card._id}`)
         .then((card) => {
           cardLikesCountElement.textContent = card.likes.length;
-        });
+        })
+        .then(() => {
+          evt.target.classList.add('card__like-btn_active')
+        })
+        .catch(err => console.error(err));
     }
   });
 
   const deleteButton = cardElement.querySelector('.card__delete-btn');
-  if (card.owner._id === '962f4b8fb85fe6328b59968a') {
+  if (card.owner._id === authorId) {
     deleteButton.addEventListener('click', function (evt) {
       const cardElement = evt.target.closest('.card');
-      cardElement.remove();
-      request('DELETE', `cards/${card._id}`);
+      request('DELETE', `cards/${card._id}`)
+        .then(() => cardElement.remove())
+        .catch((err) => console.error(err));
     });
   } else {
     deleteButton.style.display = 'none';
   }
 
   cardElement.setAttribute("tabindex", 0);
-  cardElement.querySelector('.card__img').addEventListener('click', function (evt) {
+  cardImg.addEventListener('click', function (evt) {
     handleFullScreenImage(card.link, card.name);
   })
 
