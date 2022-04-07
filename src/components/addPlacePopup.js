@@ -28,7 +28,7 @@ function handleAddPlaceForm() {
       disableAllErrors(options);
       closePopup(popupAddPlace);
     })
-    .finally(() => renderSubmitBtnLoading(submitButton, true, submitText))
+    .finally(() => renderSubmitBtnLoading(submitButton, false, submitText))
     .catch(err => console.error(err));
 }
 

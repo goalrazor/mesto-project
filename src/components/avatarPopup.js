@@ -1,6 +1,8 @@
 import {closePopup, openPopup} from "./modals";
 import {updateUserAvatar} from "./api";
 import {renderSubmitBtnLoading} from "./utils";
+import {disableButton} from "./validate";
+import {options} from "./index";
 
 const avatarButton = document.querySelector('.profile__avatar')
 const avatarPopup = document.querySelector('.popup_avatar-edit')
@@ -20,6 +22,7 @@ function handleAvatarForm() {
     .then(() => {
       avatarForm['avatar-url'].value = '';
       closePopup(avatarPopup)
+      disableButton(submitButton, options);
     })
     .finally(() => {
       renderSubmitBtnLoading(submitButton, false, submitText)
