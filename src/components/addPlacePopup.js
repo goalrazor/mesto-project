@@ -1,6 +1,6 @@
 import {addCard, createCard} from "./cards";
 import {closePopup, openPopup} from "./modals";
-import {disableAllErrors, disableButton} from "./validate";
+import {disableButton} from "./validate";
 import {options} from "./index";
 import {postNewCard} from "./api";
 import {renderSubmitBtnLoading} from "./utils";
@@ -25,7 +25,6 @@ function handleAddPlaceForm() {
       addPlaceForm['place-name'].value = '';
       addPlaceForm['place-url'].value = '';
       disableButton(submitButton, options);
-      disableAllErrors(options);
       closePopup(popupAddPlace);
     })
     .finally(() => renderSubmitBtnLoading(submitButton, false, submitText))

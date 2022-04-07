@@ -1,5 +1,5 @@
 import {closePopup, openPopup} from "./modals";
-import {disableAllErrors, disableButton} from "./validate";
+import {disableButton} from "./validate";
 import {renderSubmitBtnLoading} from "./utils";
 import {options, profileDescription, profileName} from "./index";
 import {updateUserInfo} from "./api";
@@ -14,8 +14,7 @@ export const setProfileListeners = () => {
     openPopup(popupEditProfile);
     profileForm['profile-name'].value = profileName.textContent;
     profileForm['profile-desc'].value = profileDescription.textContent;
-    const submitButton = profileForm.querySelector('.form__submit');
-    disableButton(submitButton, options);
+    disableButton(profileSubmit, options);
   });
 
   profileForm.addEventListener('submit', handleProfileForm);
@@ -33,9 +32,9 @@ function handleProfileForm() {
       profileName.textContent = data.name;
       profileDescription.textContent = data.about;
     })
+    .then(() => {
+      closePopup(popupEditProfile);
+    })
     .finally(() => renderSubmitBtnLoading(profileSubmit, false, submitText))
     .catch(err => console.error(err));
-
-  disableAllErrors(options);
-  closePopup(popupEditProfile);
 }

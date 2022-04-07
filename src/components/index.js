@@ -1,8 +1,3 @@
-/*
-Странно. Как будто к вам попал не тот коммит. Хотя я точно помню что пушил. Как будто тот проект который был у вас был
- на коммите #a3121492 'unificate close listeners' а после этого было еше 5 коммитов.
- Ну что ж - зато пока пытался понять что произошло нашел еще ошибку :)
- */
 import '../pages/index.css'
 import {enableValidation} from "./validate";
 import {setProfileListeners} from "./profilePopup";
