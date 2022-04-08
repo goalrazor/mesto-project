@@ -1,5 +1,5 @@
 import {closePopup, openPopup} from "./modals";
-import {disableButton} from "./validate";
+import {disableAllErrors, disableButton} from "./validate";
 import {renderSubmitBtnLoading} from "./utils";
 import {options, profileDescription, profileName} from "./index";
 import {updateUserInfo} from "./api";
@@ -12,6 +12,7 @@ const profileSubmit = popupEditProfile.querySelector('.button')
 export const setProfileListeners = () => {
   profileButton.addEventListener('click', function () {
     openPopup(popupEditProfile);
+    disableAllErrors(options)
     profileForm['profile-name'].value = profileName.textContent;
     profileForm['profile-desc'].value = profileDescription.textContent;
     disableButton(profileSubmit, options);

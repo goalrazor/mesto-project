@@ -1,13 +1,8 @@
-import {disableAllErrors} from "./validate";
-import {options} from "./index";
-
-
 const page = document.querySelector('.page');
 
 export function openPopup(popup) {
   popup.classList.add('popup_opened');
   addCloseListeners();
-  disableAllErrors(options)
 }
 
 export function closePopup(popup) {
@@ -16,7 +11,7 @@ export function closePopup(popup) {
 }
 
 
-function setCloseListeners() {
+export function setCloseListeners() {
   const popups = document.querySelectorAll('.popup')
   popups.forEach((popup) => {
     popup.addEventListener('mousedown', (evt) => {
@@ -38,7 +33,6 @@ const handleEscape = (evt) => {
 }
 
 const addCloseListeners = () => {
-  setCloseListeners()
   page.addEventListener('keydown', handleEscape);
 }
 

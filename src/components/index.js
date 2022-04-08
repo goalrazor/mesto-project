@@ -5,6 +5,7 @@ import {setAddPlaceListeners} from "./addPlacePopup";
 import {getCards, getProfileInfoFromServer} from "./api";
 import {setAvatarListeners} from "./avatarPopup";
 import {addCard, createCard} from "./cards";
+import {setCloseListeners} from "./modals";
 
 const profileSection = document.querySelector('.profile');
 export const options = {
@@ -44,6 +45,7 @@ const loadContentFromServer = () => {
 }
 
 loadContentFromServer();
+setCloseListeners()
 setProfileListeners();
 setAddPlaceListeners();
 

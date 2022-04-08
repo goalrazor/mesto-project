@@ -1,6 +1,6 @@
 import {addCard, createCard} from "./cards";
 import {closePopup, openPopup} from "./modals";
-import {disableButton} from "./validate";
+import {disableAllErrors, disableButton} from "./validate";
 import {options} from "./index";
 import {postNewCard} from "./api";
 import {renderSubmitBtnLoading} from "./utils";
@@ -34,6 +34,7 @@ function handleAddPlaceForm() {
 export const setAddPlaceListeners = () => {
   addPlaceButton.addEventListener('click', function () {
     openPopup(popupAddPlace);
+    disableAllErrors(options);
   });
 
   addPlaceForm.addEventListener('submit', handleAddPlaceForm);

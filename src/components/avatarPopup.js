@@ -1,7 +1,7 @@
 import {closePopup, openPopup} from "./modals";
 import {updateUserAvatar} from "./api";
 import {renderSubmitBtnLoading} from "./utils";
-import {disableButton} from "./validate";
+import {disableAllErrors, disableButton} from "./validate";
 import {options} from "./index";
 
 const avatarButton = document.querySelector('.profile__avatar')
@@ -33,6 +33,7 @@ function handleAvatarForm() {
 export const setAvatarListeners = () => {
   avatarButton.addEventListener('click', function () {
     openPopup(avatarPopup);
+    disableAllErrors(options)
   });
 
   avatarForm.addEventListener('submit', handleAvatarForm);
