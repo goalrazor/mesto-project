@@ -1,66 +1,54 @@
-import {polymorph} from "./utils";
-
-const config = {
-  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-8',
-  headers: {
-    authorization: 'c88eea69-7eb3-42c3-9092-d5939e2a4a28',
-    'Content-Type': 'application/json'
+export default class Api {
+  constructor(options) {
+    this._baseUrl = options.baseUrl;
+    this._headers = options.headers;
   }
-}
 
-const request = polymorph(
-  function (type, id) {
-    return fetch(`${config.baseUrl}/${id}`, {
+  _request(type, id, body) {
+    return fetch(`${this._baseUrl}/${id}`, {
       method: type,
-      headers: config.headers
-    })
-      .then(checkResponse);
-  },
-  function (type, id, body) {
-    return fetch(`${config.baseUrl}/${id}`, {
-      method: type,
-      headers: config.headers,
+      headers: this._headers,
       body: JSON.stringify(body)
     })
-      .then(checkResponse);
+      .then(this._checkResponse);
+  };
+
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка ${res.status}`);
   }
-)
 
-function checkResponse(res) {
-  if (res.ok) {
-    return res.json();
+  getProfileInfoFromServer() {
+    return this._request('GET', 'users/me');
   }
-  return Promise.reject(`Ошибка ${res.status}`);
-}
 
-export function getProfileInfoFromServer() {
-  return request('GET', 'users/me')
-}
+  getCards() {
+    return this._request('GET', 'cards')
+  }
 
-export function getCards() {
-  return request('GET', 'cards')
-}
+  updateUserInfo(body) {
+    return this._request('PATCH', 'users/me', body);
+  }
 
-export function updateUserInfo(body) {
-  return request('PATCH', 'users/me', body);
-}
+  updateUserAvatar(body) {
+    return this._request('PATCH', 'users/me/avatar', body);
+  }
 
-export function updateUserAvatar(body) {
-  return request('PATCH', 'users/me/avatar', body);
-}
+  postNewCard(body) {
+    return this._request('POST', 'cards', body);
+  }
 
-export function postNewCard(body) {
-  return request('POST', 'cards', body);
-}
+  deleteLikeOnCard(cardId) {
+    return this._request('DELETE', `cards/likes/${cardId}`)
+  }
 
-export function deleteLikeOnCard(cardId) {
-  return request('DELETE', `cards/likes/${cardId}`)
-}
+  addLikeOnCard(cardId) {
+    return this._request('PUT', `cards/likes/${cardId}`)
+  }
 
-export function addLikeOnCard(cardId) {
-  return request('PUT', `cards/likes/${cardId}`)
-}
-
-export function deleteCard(cardId) {
-  return request('DELETE', `cards/${cardId}`)
+  deleteCard(cardId) {
+    return this._request('DELETE', `cards/${cardId}`)
+  }
 }

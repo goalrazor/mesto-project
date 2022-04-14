@@ -1,9 +1,9 @@
 import {addCard, createCard} from "./cards";
 import {closePopup, openPopup} from "./modals";
 import {disableAllErrors, disableButton} from "./validate";
-import {options} from "./index";
-import {postNewCard} from "./api";
+import {config, options} from "./constants";
 import {renderSubmitBtnLoading} from "./utils";
+import Api from "./api";
 
 const popupAddPlace = document.querySelector('.popup_add-place');
 const addPlaceForm = document.forms['add-place-form'];
@@ -13,7 +13,8 @@ function handleAddPlaceForm() {
   const submitButton = addPlaceForm.querySelector('.form__submit');
   const submitText = 'Создать';
   renderSubmitBtnLoading(submitButton, true, submitText);
-  postNewCard(
+  const api = new Api(config);
+  api.postNewCard(
     {
       link: addPlaceForm['place-url'].value,
       name: addPlaceForm['place-name'].value

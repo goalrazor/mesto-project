@@ -1,8 +1,8 @@
 import {closePopup, openPopup} from "./modals";
-import {updateUserAvatar} from "./api";
 import {renderSubmitBtnLoading} from "./utils";
 import {disableAllErrors, disableButton} from "./validate";
-import {options} from "./index";
+import {config, options} from "./constants";
+import Api from "./api";
 
 const avatarButton = document.querySelector('.profile__avatar')
 const avatarPopup = document.querySelector('.popup_avatar-edit')
@@ -12,7 +12,8 @@ const avatarForm = document.forms['avatar-edit-form'];
 function handleAvatarForm() {
   const submitText = 'Сохранить';
   renderSubmitBtnLoading(submitButton, true, submitText);
-  updateUserAvatar(
+  const api = new Api(config);
+  api.updateUserAvatar(
     {
       avatar: avatarForm['avatar-url'].value
     })

@@ -1,8 +1,9 @@
 import {closePopup, openPopup} from "./modals";
 import {disableAllErrors, disableButton} from "./validate";
 import {renderSubmitBtnLoading} from "./utils";
-import {options, profileDescription, profileName} from "./index";
-import {updateUserInfo} from "./api";
+import {profileDescription, profileName} from "./index";
+import {config, options} from "./constants";
+import Api from "./api";
 
 const profileButton = document.querySelector('.profile__edit-btn');
 const popupEditProfile = document.querySelector('.popup_edit-profile');
@@ -24,7 +25,8 @@ export const setProfileListeners = () => {
 function handleProfileForm() {
   const submitText = 'Сохранить';
   renderSubmitBtnLoading(profileSubmit, true, submitText);
-  updateUserInfo(
+  const api = new Api(config);
+  api.updateUserInfo(
     {
       name: profileForm['profile-name'].value,
       about: profileForm['profile-desc'].value
