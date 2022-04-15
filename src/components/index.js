@@ -46,5 +46,4 @@ setAddPlaceListeners();
 
 enableValidation(options);
 
-// api.getProfileInfoFromServer();
 setAvatarListeners();
