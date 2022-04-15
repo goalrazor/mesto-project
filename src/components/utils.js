@@ -6,3 +6,7 @@ export function renderSubmitBtnLoading(element, isLoading, normalSubmitText) {
     element.value = normalSubmitText;
   }
 }
+
+export function addCard(containerSelector, cardElement) {
+  document.querySelector(containerSelector).prepend(cardElement);
+}

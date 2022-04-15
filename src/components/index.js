@@ -3,10 +3,11 @@ import {enableValidation} from "./validate";
 import {setProfileListeners} from "./profilePopup";
 import {setAddPlaceListeners} from "./addPlacePopup";
 import Api from "./api";
+import Card from "./cards";
 import {setAvatarListeners} from "./avatarPopup";
-import {addCard, createCard} from "./cards";
 import {setCloseListeners} from "./modals";
 import {config, options} from "./constants";
+import {addCard} from "./utils";
 
 const profileSection = document.querySelector('.profile');
 
@@ -27,7 +28,7 @@ const loadContentFromServer = () => {
       // console.log(userData) //TODO for debug
 
       cards.reverse().forEach(card => {
-        addCard(createCard(card));
+        addCard(options.cardContainer, new Card(card, '#card').createCard());
       });
 
       // console.log(cards); //TODO for debug

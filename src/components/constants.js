@@ -13,5 +13,6 @@ export const options = {
   submitButtonSelector: '.form__submit',
   inactiveButtonClass: 'button_inactive',
   inputErrorClass: 'form__text_type_error',
-  errorClass: 'form__text-error_active'
+  errorClass: 'form__text-error_active',
+  cardContainer: '.cards .cards__container'
 }

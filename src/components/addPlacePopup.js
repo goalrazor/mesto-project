@@ -1,8 +1,8 @@
-import {addCard, createCard} from "./cards";
+import Card from "./cards";
 import {closePopup, openPopup} from "./modals";
 import {disableAllErrors, disableButton} from "./validate";
 import {config, options} from "./constants";
-import {renderSubmitBtnLoading} from "./utils";
+import {addCard, renderSubmitBtnLoading} from "./utils";
 import Api from "./api";
 
 const popupAddPlace = document.querySelector('.popup_add-place');
@@ -20,7 +20,7 @@ function handleAddPlaceForm() {
       name: addPlaceForm['place-name'].value
     })
     .then((newCard) => {
-      addCard(createCard(newCard));
+      addCard(options.cardContainer, new Card(newCard, '#card').createCard());
     })
     .then(() => {
       addPlaceForm['place-name'].value = '';
