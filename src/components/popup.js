@@ -1,16 +1,19 @@
 export default class Popup {
     constructor(selector) {
+        //выбираем существующий попап в разметке ???УТОЧНИТЬ НУЖНО ЛИ ЕГО СОЗДАВАТЬ
         this._popupElement = document.querySelector(selector);
     }
 
     open() {
+        //тут наставник разрешил использовать document для _handleEscClose
         document.addEventListener('keydown', this._handleEscClose);
-        this._popupElement.classList.add('popup_is-opened');
+        this._popupElement.classList.add('popup_opened');
     }
 
     close() {
+        //тут наставник разрешил использовать document для _handleEscClose
         document.removeEventListener('keydown', this._handleEscClose);
-        this._popupElement.classList.remove('popup_is-opened');
+        this._popupElement.classList.remove('popup_opened');
     }
 
     _handleEscClose(evt) {
@@ -21,7 +24,8 @@ export default class Popup {
 
     setEventListeners() {
         this._popupElement.addEventListener('mousedown', (evt) => {
-            if ((evt.target.classList.contains('popup_is-opened')) || (evt.target.classList.contains('popup__close-btn'))) {
+            //клик по серому фону ИЛИ по кнопке закрытия
+            if ((evt.target.classList.contains('popup_opened')) || (evt.target.classList.contains('popup__close-btn'))) {
                 this.close();
             }
         })

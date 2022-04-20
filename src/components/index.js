@@ -8,6 +8,7 @@ import {setAvatarListeners} from "./avatarPopup";
 import {setCloseListeners} from "./modals";
 import {config, options} from "./constants";
 import {addCard} from "./utils";
+import PopupWithImage from "./popupWithImage";
 
 const profileSection = document.querySelector('.profile');
 
@@ -17,6 +18,9 @@ export const profileAvatar = profileSection.querySelector('.profile__avatar')
 export let authorId = '';
 
 const api = new Api(config)
+const popupWithImageElement = new PopupWithImage('.fullscreen-view');
+// console.log(popupWithImageElement); //TODO for debug
+
 const loadContentFromServer = () => {
   Promise.all([api.getProfileInfoFromServer(), api.getCards()])
     .then(([userData, cards]) => {
@@ -28,7 +32,9 @@ const loadContentFromServer = () => {
       // console.log(userData) //TODO for debug
 
       cards.reverse().forEach(card => {
-        addCard(options.cardContainer, new Card(card, '#card').createCard());
+        addCard(options.cardContainer, new Card(card, '#card', (imgSrc, imgHeading) => {
+            popupWithImageElement.open(imgSrc, imgHeading);
+        }).createCard());
       });
 
       // console.log(cards); //TODO for debug

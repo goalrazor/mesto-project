@@ -89,7 +89,7 @@ export default class Card {
 
     this._cardElement.setAttribute("tabindex", 0);
 
-    this._cardImg.addEventListener('click', function () {
+    this._cardImg.addEventListener('click', () => {
       this._handleFullScreen(this._cardLink, this._cardName);
     })
 
