@@ -16,20 +16,6 @@ export default class Popup {
         this._popupElement.classList.remove('popup_opened');
     }
 
-    /*open() {
-        document.addEventListener('keydown', (evt) => {
-            this._handleEscClose(evt);
-        });
-        this._popupElement.classList.add('popup_opened');
-    }
-
-    close() {
-        document.removeEventListener('keydown', (evt) => {
-            this._handleEscClose(evt);
-        });
-        this._popupElement.classList.remove('popup_opened');
-    }*/
-
     _handleEscClose(evt) {
         if (evt.key === 'Escape') {
             this.close();
