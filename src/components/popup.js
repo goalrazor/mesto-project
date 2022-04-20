@@ -6,15 +6,29 @@ export default class Popup {
 
     open() {
         //тут наставник разрешил использовать document для _handleEscClose
-        document.addEventListener('keydown', this._handleEscClose);
+        document.addEventListener('keydown', this._handleEscClose.bind(this));
         this._popupElement.classList.add('popup_opened');
     }
 
     close() {
         //тут наставник разрешил использовать document для _handleEscClose
-        document.removeEventListener('keydown', this._handleEscClose);
+        document.removeEventListener('keydown', this._handleEscClose.bind(this));
         this._popupElement.classList.remove('popup_opened');
     }
+
+    /*open() {
+        document.addEventListener('keydown', (evt) => {
+            this._handleEscClose(evt);
+        });
+        this._popupElement.classList.add('popup_opened');
+    }
+
+    close() {
+        document.removeEventListener('keydown', (evt) => {
+            this._handleEscClose(evt);
+        });
+        this._popupElement.classList.remove('popup_opened');
+    }*/
 
     _handleEscClose(evt) {
         if (evt.key === 'Escape') {
