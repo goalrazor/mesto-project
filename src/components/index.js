@@ -1,11 +1,7 @@
 import '../pages/index.css'
 import {enableValidation} from "./validate";
-//import {setProfileListeners} from "./profilePopup";
-//import {setAddPlaceListeners} from "./addPlacePopup";
 import Api from "./api";
 import Card from "./cards";
-//import {setAvatarListeners} from "./avatarPopup";
-//import {setCloseListeners} from "./modals";
 import {config, options} from "./constants";
 import {addCard} from "./utils";
 import PopupWithImage from "./popupWithImage";
@@ -27,7 +23,6 @@ popupImageElement.setEventListeners();
 
 //создаем элемент попапа с формой редактирования ПРОФИЛЯ и передаем колбэк с АПИ
 const popupUserElement = new PopupWithForm('.popup_edit-profile', (userData) => {
-    console.log(userData); //TODO for debug
     api.updateUserInfo(userData)
         .then((res) => {
             profileName.textContent = res.name;
@@ -45,7 +40,6 @@ profileButton.addEventListener('click', () => {
 
 //создаем элемент попапа с формой редактирования АВАТАРА и передаем колбэк с АПИ
 const popupAvatarElement = new PopupWithForm('.popup_avatar-edit', (userData) => {
-    //console.log(userData); //TODO for debug
     api.updateUserAvatar(userData)
         .then((res) => {
             profileAvatar.style.backgroundImage = `url(` + res.avatar + `)`;
@@ -61,7 +55,6 @@ profileAvatar.addEventListener('click', () => {
 
 //создаем элемент попапа с формой ДОБАВЛЕНИЯ КАРТОЧКИ и передаем колбэк с АПИ
 const popupNewCardElement = new PopupWithForm('.popup_add-place', (userData) => {
-    //console.log(userData); //TODO for debug
     api.postNewCard(userData)
         .then((card) => {
             addCard(options.cardContainer, new Card(card, '#card', (imgSrc, imgHeading) => {
@@ -102,10 +95,4 @@ const loadContentFromServer = () => {
 }
 
 loadContentFromServer();
-//setCloseListeners()
-//setProfileListeners();
-//setAddPlaceListeners();
-
 enableValidation(options);
-
-//setAvatarListeners();
