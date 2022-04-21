@@ -1,14 +1,15 @@
 import '../pages/index.css'
 import {enableValidation} from "./validate";
-import {setProfileListeners} from "./profilePopup";
-import {setAddPlaceListeners} from "./addPlacePopup";
+//import {setProfileListeners} from "./profilePopup";
+//import {setAddPlaceListeners} from "./addPlacePopup";
 import Api from "./api";
 import Card from "./cards";
-import {setAvatarListeners} from "./avatarPopup";
-import {setCloseListeners} from "./modals";
+//import {setAvatarListeners} from "./avatarPopup";
+//import {setCloseListeners} from "./modals";
 import {config, options} from "./constants";
 import {addCard} from "./utils";
 import PopupWithImage from "./popupWithImage";
+import PopupWithForm from "./popupWithForm";
 
 const profileSection = document.querySelector('.profile');
 
@@ -18,8 +19,29 @@ export const profileAvatar = profileSection.querySelector('.profile__avatar')
 export let authorId = '';
 
 const api = new Api(config)
-const popupWithImageElement = new PopupWithImage('.fullscreen-view');
-// console.log(popupWithImageElement); //TODO for debug
+
+//создаем элемент попапа с картинкой и навешиваем слушатели
+const popupImageElement = new PopupWithImage('.fullscreen-view');
+popupImageElement.setEventListeners();
+
+//создаем элемент попапа с формой редактирования профиля и навешиваем слушатели
+const popupUserElement = new PopupWithForm('.popup_edit-profile', (userData) => {
+    console.log(userData); //TODO for debug
+    api.updateUserInfo(userData)
+        .then((res) => {
+            profileName.textContent = res.name;
+            profileDescription.textContent = res.about;
+            popupUserElement.close();
+        })
+        .catch((err) => console.log(`Ошибка ${err.status}`));
+});
+popupUserElement.setEventListeners();
+
+//выбираем кнопку редактирования профиля и навешиваем на нее слушатель открытия попапа с формой
+const profileButton = document.querySelector('.profile__edit-btn');
+profileButton.addEventListener('click', () => {
+    popupUserElement.open();
+})
 
 const loadContentFromServer = () => {
   Promise.all([api.getProfileInfoFromServer(), api.getCards()])
@@ -33,7 +55,7 @@ const loadContentFromServer = () => {
 
       cards.reverse().forEach(card => {
         addCard(options.cardContainer, new Card(card, '#card', (imgSrc, imgHeading) => {
-            popupWithImageElement.open(imgSrc, imgHeading);
+            popupImageElement.open(imgSrc, imgHeading);
         }).createCard());
       });
 
@@ -46,10 +68,10 @@ const loadContentFromServer = () => {
 }
 
 loadContentFromServer();
-setCloseListeners()
-setProfileListeners();
-setAddPlaceListeners();
+//setCloseListeners()
+//setProfileListeners();
+//setAddPlaceListeners();
 
 enableValidation(options);
 
-setAvatarListeners();
+//setAvatarListeners();
