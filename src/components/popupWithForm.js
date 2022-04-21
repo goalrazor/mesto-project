@@ -7,12 +7,6 @@ export default class PopupWithForm extends Popup {
         this._formElement = this._popupElement.querySelector('.form');
     }
 
-    open(imgSrc, imgHeading) {
-        this.imgElement.src = imgSrc;
-        this.imgHeadingElement.textContent = imgHeading;
-        super.open();
-    }
-
     close() {
         super.close();
         this._formElement.reset();
@@ -29,6 +23,7 @@ export default class PopupWithForm extends Popup {
     }
 
     _getInputValues() {
+        //выьираем инпуты
         this._inputList = this._formElement.querySelectorAll('.form__text');
         //создаем пустой объект
         this._formValues = {};
