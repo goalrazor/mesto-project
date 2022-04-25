@@ -1,58 +1,56 @@
 export default class FormValidator {
-  constructor (options) {
-    this.options = options;
+  constructor (options, formElement) {
+    this._options = options;
+    this._formElement = formElement;
   } 
   disableButton (buttonElement) {
-    buttonElement.classList.add(this.options.inactiveButtonClass);
+    buttonElement.classList.add(this._options.inactiveButtonClass);
     buttonElement.disabled = true;
   }
 
   disableAllErrors() {
-    const formFieldsList = Array.from(document.querySelectorAll(this.options.formField));
-    formFieldsList.forEach((formElement) => {
-      const inputElement = formElement.querySelector(this.options.inputSelector);
-      this._hideInputError(formElement, inputElement, this.options);
+    const formFieldsList = Array.from(document.querySelectorAll(this._options.formField));
+    formFieldsList.forEach((formField) => {
+      const inputElement = formField.querySelector(this._options.inputSelector);
+      this._hideInputError(formField, inputElement, this._options);
     })
   }
 
   enableValidation() {
-    const formList = Array.from(document.querySelectorAll(this.options.formSelector));
-    formList.forEach((formElement) => {
-      formElement.addEventListener('submit', function (evt) {
+      this._formElement.addEventListener('submit', function (evt) {
         evt.preventDefault();
       });
-      this._setEventListeners(formElement);
-    });
-  }
+      this._setEventListeners(this._formElement);
+    };
   
-  _showInputError = (formElement, inputElement, errorMessage) => {
-    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.add(this.options.inputErrorClass);
+  _showInputError = (inputElement, errorMessage) => {
+    const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
+    inputElement.classList.add(this._options.inputErrorClass);
     errorElement.textContent = errorMessage;
-    errorElement.classList.add(this.options.errorClass);
+    errorElement.classList.add(this._options.errorClass);
   };
 
-  _hideInputError = (formElement, inputElement) => {
-    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.remove(this.options.inputErrorClass);
-    errorElement.classList.remove(this.options.errorClass);
+  _hideInputError = (inputElement) => {
+    const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
+    inputElement.classList.remove(this._options.inputErrorClass);
+    errorElement.classList.remove(this._options.errorClass);
     errorElement.textContent = '';
   };
   
-  _checkInputValidity = (formElement, inputElement) => {
+  _checkInputValidity = (inputElement) => {
     if (!inputElement.validity.valid) {
-      this._showInputError(formElement, inputElement, inputElement.validationMessage);
+      this._showInputError(inputElement, inputElement.validationMessage);
     } else {
-      this._hideInputError(formElement, inputElement);
+      this._hideInputError(inputElement);
     }
   };
-  _setEventListeners = (formElement) => {
-    const inputList = Array.from(formElement.querySelectorAll(this.options.inputSelector));
-    const buttonElement = formElement.querySelector(this.options.submitButtonSelector);
+  _setEventListeners = () => {
+    const inputList = Array.from(this._formElement.querySelectorAll(this._options.inputSelector));
+    const buttonElement = this._formElement.querySelector(this._options.submitButtonSelector);
     this.disableButton(buttonElement);
     inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
-        this._checkInputValidity(formElement, inputElement);
+        this._checkInputValidity(inputElement);
         this._toggleButtonState(inputList, buttonElement);
       });
     });
@@ -68,7 +66,7 @@ export default class FormValidator {
     if (this._hasInvalidInput(inputList)) {
       this.disableButton(buttonElement);
     } else {
-      buttonElement.classList.remove(this.options.inactiveButtonClass);
+      buttonElement.classList.remove(this._options.inactiveButtonClass);
       buttonElement.disabled = false;
     }
   }

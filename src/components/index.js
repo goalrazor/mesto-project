@@ -95,5 +95,8 @@ const loadContentFromServer = () => {
 }
 
 loadContentFromServer();
-const validaion = new FormValidator (options);
-validaion.enableValidation();
+
+const formList = Array.from(document.querySelectorAll(options.formSelector));
+formList.forEach((formElement) => {
+    new FormValidator (options, formElement).enableValidation();
+});
