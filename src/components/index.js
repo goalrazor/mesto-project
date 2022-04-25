@@ -1,5 +1,5 @@
 import '../pages/index.css'
-import {enableValidation} from "./validate";
+import FormValidator from "./FormValidator";
 import Api from "./api";
 import Card from "./cards";
 import {config, options} from "./constants";
@@ -95,4 +95,5 @@ const loadContentFromServer = () => {
 }
 
 loadContentFromServer();
-enableValidation(options);
+const validaion = new FormValidator (options);
+validaion.enableValidation();
