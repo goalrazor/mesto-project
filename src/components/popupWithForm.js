@@ -7,6 +7,26 @@ export default class PopupWithForm extends Popup {
         this._formElement = this._popupElement.querySelector('.form');
     }
 
+    //передаем в метод значения полей при их наличии
+    open(predefinedValues) {
+        //если в форме есть поля, которые нужно заполнить при открытии, вызываем функцию заполнения формы
+        if (predefinedValues) {
+            this._fillInputValues(predefinedValues);
+        }
+        super.open();
+    }
+
+    _fillInputValues(arr) {
+        //принимаем массив с ключами и значениями полей объекта
+        const inputNames = Object.keys(arr);
+        inputNames.forEach((inputName) => {
+            //проверяем есть ли инпут с таким именем в форме, если есть то заполняем его текстом
+            if (this._formElement.elements[inputName]) {
+                this._formElement.elements[inputName].value = arr[inputName];
+            }
+        })
+    }
+
     close() {
         super.close();
         this._formElement.reset();
