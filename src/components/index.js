@@ -6,6 +6,7 @@ import {config, options} from "./constants";
 import {addCard} from "./utils";
 import PopupWithImage from "./popupWithImage";
 import PopupWithForm from "./popupWithForm";
+import UserInfo from "./userInfo";
 
 const profileSection = document.querySelector('.profile');
 
@@ -17,25 +18,29 @@ export let authorId = '';
 
 const api = new Api(config)
 
+
 //создаем элемент попапа с картинкой и навешиваем слушатели
 const popupImageElement = new PopupWithImage('.fullscreen-view');
 popupImageElement.setEventListeners();
 
-//создаем элемент попапа с формой редактирования ПРОФИЛЯ и передаем колбэк с АПИ
+//создаем объект ИНФОРМАЦИИ О ПОЛЬЗОВАТЕЛЕ
+const userInfo = new UserInfo('.profile__name','.profile__desc');
+
+//создаем элемент попапа с формой редактирования ИНФОРМАЦИИ О ПОЛЬЗОВАТЕЛЕ и передаем колбэк с АПИ
 const popupUserElement = new PopupWithForm('.popup_edit-profile', (userData) => {
-    api.updateUserInfo(userData)
-        .then((res) => {
-            profileName.textContent = res.name;
-            profileDescription.textContent = res.about;
-            popupUserElement.close();
-        })
-        .catch((err) => console.log(`Ошибка ${err.status}`));
+    userInfo.setUserInfo(userData)
+        //функция возвращает цепочку промисов из userInfo, по завершению цепочки закрываем попап
+        .finally(popupUserElement.close())
 });
 popupUserElement.setEventListeners();
-//выбираем кнопку редактирования ПРОФИЛЯ и навешиваем на нее слушатель открытия попапа с формой
+//выбираем кнопку редактирования ИНФОРМАЦИИ О ПОЛЬЗОВАТЕЛЕ и навешиваем на нее слушатель открытия попапа с формой
 const profileButton = document.querySelector('.profile__edit-btn');
 profileButton.addEventListener('click', () => {
-    popupUserElement.open();
+    userInfo.getUserInfo()
+        .then((res) => {
+            popupUserElement.open(res);
+        })
+        .catch((err) => console.log(`Ошибка ${err.status}`));
 })
 
 //создаем элемент попапа с формой редактирования АВАТАРА и передаем колбэк с АПИ
@@ -73,8 +78,8 @@ addPlaceButton.addEventListener('click', () => {
 const loadContentFromServer = () => {
   Promise.all([api.getProfileInfoFromServer(), api.getCards()])
     .then(([userData, cards]) => {
-      profileName.textContent = userData.name;
-      profileDescription.textContent = userData.about;
+      //  console.log(userData); //TODO for debug
+      userInfo.setUserInfo(userData);
       profileAvatar.style.backgroundImage = `url(` + userData.avatar + `)`;
       authorId = userData._id;
 
