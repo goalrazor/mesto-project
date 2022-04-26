@@ -103,5 +103,6 @@ loadContentFromServer();
 
 const formList = Array.from(document.querySelectorAll(options.formSelector));
 formList.forEach((formElement) => {
-    new FormValidator (options, formElement).enableValidation();
+    const validation = new FormValidator (options, formElement);
+    validation.enableValidation();
 });
