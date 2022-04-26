@@ -7,6 +7,7 @@ import {addCard} from "./utils";
 import PopupWithImage from "./popupWithImage";
 import PopupWithForm from "./popupWithForm";
 import UserInfo from "./userInfo";
+import Section from "./section";
 
 const profileSection = document.querySelector('.profile');
 
@@ -76,27 +77,32 @@ addPlaceButton.addEventListener('click', () => {
 })
 
 const loadContentFromServer = () => {
-  Promise.all([api.getProfileInfoFromServer(), api.getCards()])
-    .then(([userData, cards]) => {
-      //  console.log(userData); //TODO for debug
-      userInfo.setUserInfo(userData);
-      profileAvatar.style.backgroundImage = `url(` + userData.avatar + `)`;
-      authorId = userData._id;
+    Promise.all([api.getProfileInfoFromServer(), api.getCards()])
+        .then(([userData, cards]) => {
+            //  console.log(userData); //TODO for debug
+            userInfo.setUserInfo(userData);
+            profileAvatar.style.backgroundImage = `url(` + userData.avatar + `)`;
+            authorId = userData._id;
 
-      // console.log(userData) //TODO for debug
+            // console.log(userData) //TODO for debug
 
-      cards.reverse().forEach(card => {
-        addCard(options.cardContainer, new Card(card, '#card', (imgSrc, imgHeading) => {
-            popupImageElement.open(imgSrc, imgHeading);
-        }).createCard());
-      });
+            const cardList = new Section({
+                data: cards.reverse(),
+                renderer: (item) => {
+                    const card = new Card(item, '#card', (imgSrc, imgHeading) => {
+                        popupImageElement.open(imgSrc, imgHeading);
+                    });
+                    const cardElement = card.createCard();
+                    cardList.addItem(cardElement);
+                }
+            }, options.cardContainer);
+            cardList.renderItems();
 
-      console.log(cards); //TODO for debug
-
-    })
-    .catch(err => {
-      console.error("Couldn't load from server | " + err)
-    })
+            // console.log(cards); //TODO for debug
+        })
+        .catch(err => {
+            console.error("Couldn't load from server | " + err)
+        })
 }
 
 loadContentFromServer();
