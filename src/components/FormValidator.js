@@ -9,7 +9,7 @@ export default class FormValidator {
   }
 
   disableAllErrors() {
-    const formFieldsList = Array.from(document.querySelectorAll(this._options.formField));
+    const formFieldsList = Array.from(this._formElement.querySelectorAll(this._options.formField));
     formFieldsList.forEach((formField) => {
       const inputElement = formField.querySelector(this._options.inputSelector);
       this._hideInputError(inputElement);
