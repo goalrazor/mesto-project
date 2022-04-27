@@ -3,10 +3,10 @@ import {enableValidation} from "./validate";
 import Api from "./api";
 import Card from "./cards";
 import {config, options} from "./constants";
-import {addCard} from "./utils";
 import PopupWithImage from "./popupWithImage";
 import PopupWithForm from "./popupWithForm";
 import UserInfo from "./userInfo";
+import Section from "./section";
 
 const profileSection = document.querySelector('.profile');
 
@@ -58,13 +58,14 @@ profileAvatar.addEventListener('click', () => {
     popupAvatarElement.open();
 })
 
-//создаем элемент попапа с формой ДОБАВЛЕНИЯ КАРТОЧКИ и передаем колбэк с АПИ
+//создаем элемент попапа с формой ДОБАВЛЕНИЯ КАРТОЧКИ
 const popupNewCardElement = new PopupWithForm('.popup_add-place', (userData) => {
     api.postNewCard(userData)
         .then((card) => {
-            addCard(options.cardContainer, new Card(card, '#card', (imgSrc, imgHeading) => {
+            //вызываем метод добавления карточки в контейнер, собираем и передаем ему карточку
+            cardList.addItem(new Card(card, '#card', (imgSrc, imgHeading) => {
                 popupImageElement.open(imgSrc, imgHeading);
-            }).createCard());
+            }).createCard())
             popupNewCardElement.close();
         })
         .catch((err) => console.log(`Ошибка ${err.status}`));
@@ -75,28 +76,36 @@ addPlaceButton.addEventListener('click', () => {
     popupNewCardElement.open();
 })
 
-const loadContentFromServer = () => {
-  Promise.all([api.getProfileInfoFromServer(), api.getCards()])
-    .then(([userData, cards]) => {
-      //  console.log(userData); //TODO for debug
-      userInfo.setUserInfo(userData);
-      profileAvatar.style.backgroundImage = `url(` + userData.avatar + `)`;
-      authorId = userData._id;
-
-      // console.log(userData) //TODO for debug
-
-      cards.reverse().forEach(card => {
-        addCard(options.cardContainer, new Card(card, '#card', (imgSrc, imgHeading) => {
+//создаем элемент Section для заполнения контейнера с карточками
+const cardList = new Section(
+    //передаем колбэк с алгоритмом рендеринга карточки
+    (item) => {
+        const card = new Card(item, '#card', (imgSrc, imgHeading) => {
             popupImageElement.open(imgSrc, imgHeading);
-        }).createCard());
-      });
+        });
+        const cardElement = card.createCard();
+        cardList.addItem(cardElement);
+    }
+, options.cardContainer);
 
-      console.log(cards); //TODO for debug
 
-    })
-    .catch(err => {
-      console.error("Couldn't load from server | " + err)
-    })
+const loadContentFromServer = () => {
+    Promise.all([api.getProfileInfoFromServer(), api.getCards()])
+        .then(([userData, cards]) => {
+            //  console.log(userData); //TODO for debug
+            //заполняем данные о пользователе
+            userInfo.setUserInfo(userData);
+            profileAvatar.style.backgroundImage = `url(` + userData.avatar + `)`;
+            authorId = userData._id;
+
+            //рендерим карточки
+            cardList.renderItems(cards.reverse());
+
+            // console.log(cards); //TODO for debug
+        })
+        .catch(err => {
+            console.error("Couldn't load from server | " + err)
+        })
 }
 
 loadContentFromServer();
