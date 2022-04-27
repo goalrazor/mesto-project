@@ -12,7 +12,7 @@ export default class FormValidator {
     const formFieldsList = Array.from(document.querySelectorAll(this._options.formField));
     formFieldsList.forEach((formField) => {
       const inputElement = formField.querySelector(this._options.inputSelector);
-      this._hideInputError(formField, inputElement, this._options);
+      this._hideInputError(inputElement);
     })
   }
 

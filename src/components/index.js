@@ -38,7 +38,10 @@ const profileButton = document.querySelector('.profile__edit-btn');
 profileButton.addEventListener('click', () => {
     userInfo.getUserInfo()
         .then((res) => {
+            const validation = new FormValidator (options, popupUserElement.formElement);
+            validation.enableValidation();
             popupUserElement.open(res);
+            validation.disableAllErrors();
         })
         .catch((err) => console.log(`Ошибка ${err.status}`));
 })
@@ -100,9 +103,3 @@ const loadContentFromServer = () => {
 }
 
 loadContentFromServer();
-
-const formList = Array.from(document.querySelectorAll(options.formSelector));
-formList.forEach((formElement) => {
-    const validation = new FormValidator (options, formElement);
-    validation.enableValidation();
-});
