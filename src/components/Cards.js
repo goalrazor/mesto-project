@@ -1,6 +1,6 @@
-import {authorId} from "./index";
-import {config} from "./constants";
-import Api from "./api";
+import {authorId} from "../pages";
+import {config} from "../utils/constants";
+import Api from "./Api";
 
 export default class Card {
   constructor(data, cardTempSelector, handleFullScreen) {

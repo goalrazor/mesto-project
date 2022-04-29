@@ -1,17 +1,15 @@
-import '../pages/index.css'
-import FormValidator from "./FormValidator";
-import Api from "./api";
-import Card from "./cards";
-import {config, options} from "./constants";
-import PopupWithImage from "./popupWithImage";
-import PopupWithForm from "./popupWithForm";
-import UserInfo from "./userInfo";
-import Section from "./section";
+import './index.css'
+import FormValidator from "../components/FormValidator";
+import Api from "../components/Api";
+import Card from "../components/Cards";
+import {config, options} from "../utils/constants";
+import PopupWithImage from "../components/PopupWithImage";
+import PopupWithForm from "../components/PopupWithForm";
+import UserInfo from "../components/UserInfo";
+import Section from "../components/Section";
 
 const profileSection = document.querySelector('.profile');
 
-export const profileName = profileSection.querySelector('.profile__name');
-export const profileDescription = profileSection.querySelector('.profile__desc');
 export const profileAvatar = profileSection.querySelector('.profile__avatar')
 export const addPlaceButton = document.querySelector('.profile__add-btn');
 export let authorId = '';
