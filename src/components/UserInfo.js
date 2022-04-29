@@ -1,5 +1,5 @@
-import {config} from "./constants";
-import Api from "./api";
+import {config} from "../utils/constants";
+import Api from "./Api";
 
 export default class UserInfo {
     constructor(nameSelector, aboutSelector) {
