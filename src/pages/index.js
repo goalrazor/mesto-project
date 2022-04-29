@@ -10,8 +10,6 @@ import Section from "../components/Section";
 
 const profileSection = document.querySelector('.profile');
 
-export const profileName = profileSection.querySelector('.profile__name');
-export const profileDescription = profileSection.querySelector('.profile__desc');
 export const profileAvatar = profileSection.querySelector('.profile__avatar')
 export const addPlaceButton = document.querySelector('.profile__add-btn');
 export let authorId = '';
