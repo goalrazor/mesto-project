@@ -28,7 +28,10 @@ const userInfo = new UserInfo('.profile__name','.profile__desc');
 const popupUserElement = new PopupWithForm('.popup_edit-profile', (userData) => {
     userInfo.setUserInfo(userData)
         //функция возвращает цепочку промисов из userInfo, по завершению цепочки закрываем попап
-        .finally(popupUserElement.close())
+        .finally(() => {
+            popupUserElement.resetButtonText("Сохранить")
+            popupUserElement.close();
+        });
 });
 popupUserElement.setEventListeners();
 //выбираем кнопку редактирования ИНФОРМАЦИИ О ПОЛЬЗОВАТЕЛЕ и навешиваем на нее слушатель открытия попапа с формой
@@ -49,10 +52,13 @@ const popupAvatarElement = new PopupWithForm('.popup_avatar-edit', (userData) =>
     api.updateUserAvatar(userData)
         .then((res) => {
             profileAvatar.style.backgroundImage = `url(` + res.avatar + `)`;
-            popupAvatarElement.close();
+            
         })
-        .catch((err) => console.log(`Ошибка ${err.status}`));
-        /*.finally(() => popupAvatarElement.resetButtonText());*/
+        .catch((err) => console.log(`Ошибка ${err.status}`))
+        .finally(() => {
+            popupAvatarElement.resetButtonText("Сохранить")
+            popupAvatarElement.close();
+        });
 });
 popupAvatarElement.setEventListeners();
 //выбираем кнопку редактирования АВАТАРА и навешиваем на нее слушатель открытия попапа с формой
@@ -70,11 +76,16 @@ const popupNewCardElement = new PopupWithForm('.popup_add-place', (userData) => 
             //вызываем метод добавления карточки в контейнер, собираем и передаем ему карточку
             cardList.addItem(new Card(card, '#card', (imgSrc, imgHeading) => {
                 popupImageElement.open(imgSrc, imgHeading);
-            }).createCard())
-            popupNewCardElement.close();
+            }).createCard());
         })
-        .catch((err) => console.log(`Ошибка ${err.status}`));
+        .catch((err) => console.log(`Ошибка ${err.status}`))
+        .finally(() => {
+            popupNewCardElement.resetButtonText("Создать")
+            popupNewCardElement.close();
+        
 });
+})
+
 popupNewCardElement.setEventListeners();
 //выбираем кнопку ДОБАВЛЕНИЯ КАРТОЧКИ и навешиваем на нее слушатель открытия попапа с формой добавления карточки
 addPlaceButton.addEventListener('click', () => {

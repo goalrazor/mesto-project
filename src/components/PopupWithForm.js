@@ -33,18 +33,12 @@ export default class PopupWithForm extends Popup {
     }
 
     _changeButtonText () {
-        debugger;
-        const submitButton = this.formElement.querySelector('.form__submit'); 
-        console.log(submitButton);
-        submitButton.textContent = "Сохранение...";
-        return submitButton.textContent;
+        this.formElement.querySelector('.form__submit').value = "Сохранение..."; 
     }
 
-    /*resetButtonText () {
-        const submitButton = this.formElement.querySelector('.button'); 
-        console.log(submitButton);
-        submitButton.textContent = "Сохранить.";
-    }*/
+    resetButtonText (text) {
+        this.formElement.querySelector('.button').value = text;
+    }
 
     setEventListeners() {
         super.setEventListeners();
