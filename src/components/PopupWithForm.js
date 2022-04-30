@@ -36,7 +36,9 @@ export default class PopupWithForm extends Popup {
         super.setEventListeners();
         this.formElement.addEventListener('submit', (evt) => {
             evt.preventDefault();
-            //передаем в колбэк значения полей !!!ДОПИСАТЬ ТЕЛО КОЛБЭКА В ИНДЕКСЕ
+            //по нажатию кнопки сабмита меняем текст на "Сохранение..."
+            this._setPendingStatus()
+            //передаем в колбэк значения полей
             this._handleFormSubmit(this._getInputValues());
             this.formElement.reset();
         })
@@ -53,6 +55,16 @@ export default class PopupWithForm extends Popup {
         });
 
         return this._formValues;
+    }
+
+    //функция замены текста кнопки сабмита при сохранении
+    _setPendingStatus() {
+        this.formElement.elements['submit-button'].value = 'Сохранение...'
+    }
+
+    //выбираем кнопку сабмита и меняем текст
+    rollbackButtonText(text) {
+        this.formElement.elements['submit-button'].value = text;
     }
 
 }
