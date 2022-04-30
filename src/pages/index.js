@@ -52,6 +52,7 @@ const popupAvatarElement = new PopupWithForm('.popup_avatar-edit', (userData) =>
             popupAvatarElement.close();
         })
         .catch((err) => console.log(`Ошибка ${err.status}`));
+        /*.finally(() => popupAvatarElement.resetButtonText());*/
 });
 popupAvatarElement.setEventListeners();
 //выбираем кнопку редактирования АВАТАРА и навешиваем на нее слушатель открытия попапа с формой

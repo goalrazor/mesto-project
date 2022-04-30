@@ -23,5 +23,5 @@
 Над проектном работали:
 
 - Артем Васильев v.artuom@ya.ru
-- Александр Панкин
+- Александр Панкин alexander.g.pankin@gmail.com
 - Александр Голиков goalrazor@yandex.ru

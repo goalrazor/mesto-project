@@ -32,11 +32,26 @@ export default class PopupWithForm extends Popup {
         this.formElement.reset();
     }
 
+    _changeButtonText () {
+        debugger;
+        const submitButton = this.formElement.querySelector('.form__submit'); 
+        console.log(submitButton);
+        submitButton.textContent = "Сохранение...";
+        return submitButton.textContent;
+    }
+
+    /*resetButtonText () {
+        const submitButton = this.formElement.querySelector('.button'); 
+        console.log(submitButton);
+        submitButton.textContent = "Сохранить.";
+    }*/
+
     setEventListeners() {
         super.setEventListeners();
         this.formElement.addEventListener('submit', (evt) => {
             evt.preventDefault();
             //передаем в колбэк значения полей !!!ДОПИСАТЬ ТЕЛО КОЛБЭКА В ИНДЕКСЕ
+            this._changeButtonText();
             this._handleFormSubmit(this._getInputValues());
             this.formElement.reset();
         })
