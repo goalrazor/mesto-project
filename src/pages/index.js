@@ -74,10 +74,9 @@ profileAvatar.addEventListener('click', () => {
 const popupNewCardElement = new PopupWithForm('.popup_add-place', (userData) => {
     api.postNewCard(userData)
         .then((card) => {
-            //вызываем метод добавления карточки в контейнер, собираем и передаем ему карточку
-            cardList.addItem(new Card(card, '#card', (imgSrc, imgHeading) => {
-                popupImageElement.open(imgSrc, imgHeading);
-            }).createCard())
+            //вызываем метод добавления карточки в контейнер, передаем ему данные карточки
+            // !!сборка карточки переехала в renderer
+            cardList.addItem(card);
         })
         .catch((err) => console.log(`Ошибка ${err.status}`))
         .finally(() => {
@@ -97,13 +96,13 @@ addPlaceButton.addEventListener('click', () => {
 
 //создаем элемент Section для заполнения контейнера с карточками
 const cardList = new Section(
-    //передаем колбэк с алгоритмом рендеринга карточки
+    /* Можно было бы сделать функцию renderer обычной функцией создания карточки (без вставки ее в DOM),
+    тогда в методе addItem можно было бы сразу создавать карточку и тут же вставлять ее в DOM.
+    Тогда в index.js не нужно было бы отдельно создавать функцию createCard, чтобы в 2х местах создавать карточки.*/
     (item) => {
-        const card = new Card(item, '#card', (imgSrc, imgHeading) => {
+        return new Card(item, '#card', (imgSrc, imgHeading) => {
             popupImageElement.open(imgSrc, imgHeading);
-        });
-        const cardElement = card.createCard();
-        cardList.addItem(cardElement);
+        }).createCard();
     }
 , options.cardContainer);
 
