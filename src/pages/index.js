@@ -41,6 +41,7 @@ profileButton.addEventListener('click', () => {
     userInfo.getUserInfo()
         .then((res) => {
             popupUserElement.open(res);
+            formValidators[popupUserElement.formElement.getAttribute('name')].disableAllErrors();
         })
         .catch((err) => console.log(`Ошибка ${err.status}`));
 })
@@ -62,6 +63,7 @@ popupAvatarElement.setEventListeners();
 //выбираем кнопку редактирования АВАТАРА и навешиваем на нее слушатель открытия попапа с формой
 profileAvatar.addEventListener('click', () => {
         popupAvatarElement.open();
+        formValidators[popupAvatarElement.formElement.getAttribute('name')].disableAllErrors();
 })
 
 //создаем элемент попапа с формой ДОБАВЛЕНИЯ КАРТОЧКИ
@@ -84,6 +86,7 @@ popupNewCardElement.setEventListeners();
 //выбираем кнопку ДОБАВЛЕНИЯ КАРТОЧКИ и навешиваем на нее слушатель открытия попапа с формой добавления карточки
 addPlaceButton.addEventListener('click', () => {
         popupNewCardElement.open();
+        formValidators[popupNewCardElement.formElement.getAttribute('name')].disableAllErrors();
 })
 
 //создаем элемент Section для заполнения контейнера с карточками
