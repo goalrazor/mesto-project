@@ -40,10 +40,7 @@ const profileButton = document.querySelector('.profile__edit-btn');
 profileButton.addEventListener('click', () => {
     userInfo.getUserInfo()
         .then((res) => {
-            const validation = new FormValidator (options, popupUserElement.formElement);
-            validation.enableValidation();
             popupUserElement.open(res);
-            validation.disableAllErrors();
         })
         .catch((err) => console.log(`Ошибка ${err.status}`));
 })
@@ -64,10 +61,7 @@ const popupAvatarElement = new PopupWithForm('.popup_avatar-edit', (userData) =>
 popupAvatarElement.setEventListeners();
 //выбираем кнопку редактирования АВАТАРА и навешиваем на нее слушатель открытия попапа с формой
 profileAvatar.addEventListener('click', () => {
-    const validation = new FormValidator (options, popupAvatarElement.formElement);
-        validation.enableValidation();
         popupAvatarElement.open();
-        validation.disableAllErrors();
 })
 
 //создаем элемент попапа с формой ДОБАВЛЕНИЯ КАРТОЧКИ
@@ -89,10 +83,7 @@ const popupNewCardElement = new PopupWithForm('.popup_add-place', (userData) => 
 popupNewCardElement.setEventListeners();
 //выбираем кнопку ДОБАВЛЕНИЯ КАРТОЧКИ и навешиваем на нее слушатель открытия попапа с формой добавления карточки
 addPlaceButton.addEventListener('click', () => {
-    const validation = new FormValidator (options, popupNewCardElement.formElement);
-        validation.enableValidation();
         popupNewCardElement.open();
-        validation.disableAllErrors();
 })
 
 //создаем элемент Section для заполнения контейнера с карточками
@@ -128,3 +119,21 @@ const loadContentFromServer = () => {
 }
 
 loadContentFromServer();
+
+const formValidators = {}
+
+// Включение валидации
+const enableValidation = (options) => {
+  const formList = Array.from(document.querySelectorAll(options.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(options, formElement)
+// получаем данные из атрибута `name` у формы
+    const formName = formElement.getAttribute('name')
+
+   // вот тут в объект записываем под именем формы
+    formValidators[formName] = validator;
+   validator.enableValidation();
+  });
+};
+
+enableValidation(options);
