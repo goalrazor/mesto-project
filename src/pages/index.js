@@ -22,16 +22,26 @@ const popupImageElement = new PopupWithImage('.fullscreen-view');
 popupImageElement.setEventListeners();
 
 //создаем объект ИНФОРМАЦИИ О ПОЛЬЗОВАТЕЛЕ
-const userInfo = new UserInfo('.profile__name', '.profile__desc');
+const userInfo = new UserInfo('.profile__name', '.profile__desc', api);
+
+function setUserAvatar(userData) {
+  return api.updateUserAvatar(userData)
+    .then((res) => {
+      profileAvatar.style.backgroundImage = `url(` + res.avatar + `)`;
+    })
+}
 
 //создаем элемент попапа с формой редактирования ИНФОРМАЦИИ О ПОЛЬЗОВАТЕЛЕ и передаем колбэк с АПИ
 const popupUserElement = new PopupWithForm('.popup_edit-profile', (userData) => {
   userInfo.setUserInfo(userData)
+    .then(() => {
+      setUserAvatar(userData);
+      popupUserElement.close()
+    })
     //функция возвращает цепочку промисов из userInfo, по завершению цепочки закрываем попап
     .finally(() => {
       //перед закрытием попапа убираем текст "Сохранение..." с кнопки
       popupUserElement.rollbackButtonText('Сохранить')
-      popupUserElement.close();
     })
 });
 popupUserElement.setEventListeners();
@@ -48,11 +58,8 @@ profileButton.addEventListener('click', () => {
 
 //создаем элемент попапа с формой редактирования АВАТАРА и передаем колбэк с АПИ
 const popupAvatarElement = new PopupWithForm('.popup_avatar-edit', (userData) => {
-  api.updateUserAvatar(userData)
-    .then((res) => {
-      profileAvatar.style.backgroundImage = `url(` + res.avatar + `)`;
-      popupAvatarElement.close();
-    })
+  setUserAvatar(userData)
+    .then(() => popupAvatarElement.close())
     .catch((err) => console.log(`Ошибка ${err.status}`))
     .finally(() => {
       //убираем текст "Сохранение..." с кнопки
