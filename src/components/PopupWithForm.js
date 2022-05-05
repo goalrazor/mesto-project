@@ -5,6 +5,16 @@ export default class PopupWithForm extends Popup {
         super(selector);
         this._handleFormSubmit = handleFormSubmit;
         this.formElement = this._popupElement.querySelector('.form');
+
+        /* Все элементы, которые используются в нескольких разных методах классов
+        или поиск которых осуществляется при каждом срабатывании метода, желательно найти 1 раз
+        и объявить их полями класса (классовыми переменными с this). Чаще всего это удобно сделать в конструкторе,
+        generateCard или _setEventListeners, и тогда эти переменные будут доступны по всему коду класса.
+        Это позволит сэкономить время на повторный поиск элементов, так как они 1 раз были найдены.
+        И не надо будет их больше передавать в вызовы методов.
+        И в портфолио такой код будет выгодно смотреться для работодателя.
+        Эти элементы обычно this._inputList, this._submitButton, this._form, this._cardImage, this._likeButton */
+        this._inputList = this.formElement.querySelectorAll('.form__text');
     }
 
     //передаем в метод значения полей при их наличии
@@ -40,13 +50,10 @@ export default class PopupWithForm extends Popup {
             this._setPendingStatus()
             //передаем в колбэк значения полей
             this._handleFormSubmit(this._getInputValues());
-            this.formElement.reset();
         })
     }
 
     _getInputValues() {
-        //выьираем инпуты
-        this._inputList = this.formElement.querySelectorAll('.form__text');
         //создаем пустой объект
         this._formValues = {};
         //засовываем туда значения всех полей, ключ - имя поля
