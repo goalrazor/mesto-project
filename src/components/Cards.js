@@ -1,17 +1,14 @@
-import {authorId} from "../pages";
-import {config} from "../utils/constants";
-import Api from "./Api";
-
 export default class Card {
-  constructor(data, cardTempSelector, handleFullScreen) {
+  constructor(data, cardTempSelector, handleFullScreen, api, authorId) {
     this._card = data;
     this._cardLink = data.link;
     this._cardName = data.name;
     this._cardId = data._id;
     this._author = data.owner._id
     this._cardTempSelector = cardTempSelector;
-    this._api = new Api(config);
+    this._api = api;
     this._handleFullScreen = handleFullScreen;
+    this._authorId = authorId;
   }
 
   _createTemplateElements() {
@@ -26,7 +23,7 @@ export default class Card {
   _updateLikes() {
     this._card.likes.forEach((likeAuthor) => {
       this._cardLikesCountElement.textContent = this._card.likes.length;
-      if (likeAuthor._id === authorId) {
+      if (likeAuthor._id === this._authorId) {
         this._likeBtn.classList.add('card__like-btn_active');
       } else {
         this._likeBtn.classList.remove('card__like-btn_active');
@@ -63,7 +60,7 @@ export default class Card {
   }
 
   _handleDeleteButton() {
-    if (this._author === authorId) {
+    if (this._author === this._authorId) {
       this._deleteButton.addEventListener('click', (evt) => {
         const cardElement = evt.target.closest('.card');
         this._api.deleteCard(this._cardId)
@@ -75,6 +72,18 @@ export default class Card {
     }
   }
 
+  _handleFullscreenImageListener() {
+    this._cardImg.addEventListener('click', () => {
+      this._handleFullScreen(this._cardLink, this._cardName);
+    })
+  }
+
+  _setEventListeners() {
+    this._addLikesListener();
+    this._handleDeleteButton();
+    this._handleFullscreenImageListener();
+  }
+
   createCard() {
     this._createTemplateElements();
     this._cardImg.src = this._cardLink;
@@ -83,15 +92,9 @@ export default class Card {
 
     this._updateLikes();
 
-    this._addLikesListener();
-
-    this._handleDeleteButton();
-
     this._cardElement.setAttribute("tabindex", 0);
 
-    this._cardImg.addEventListener('click', () => {
-      this._handleFullScreen(this._cardLink, this._cardName);
-    })
+    this._setEventListeners();
 
     return this._cardElement;
   }
