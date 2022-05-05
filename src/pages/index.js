@@ -22,102 +22,102 @@ const popupImageElement = new PopupWithImage('.fullscreen-view');
 popupImageElement.setEventListeners();
 
 //создаем объект ИНФОРМАЦИИ О ПОЛЬЗОВАТЕЛЕ
-const userInfo = new UserInfo('.profile__name','.profile__desc');
+const userInfo = new UserInfo('.profile__name', '.profile__desc');
 
 //создаем элемент попапа с формой редактирования ИНФОРМАЦИИ О ПОЛЬЗОВАТЕЛЕ и передаем колбэк с АПИ
 const popupUserElement = new PopupWithForm('.popup_edit-profile', (userData) => {
-    userInfo.setUserInfo(userData)
-        //функция возвращает цепочку промисов из userInfo, по завершению цепочки закрываем попап
-        .finally(() => {
-            //перед закрытием попапа убираем текст "Сохранение..." с кнопки
-            popupUserElement.rollbackButtonText('Сохранить')
-            popupUserElement.close();
-        })
+  userInfo.setUserInfo(userData)
+    //функция возвращает цепочку промисов из userInfo, по завершению цепочки закрываем попап
+    .finally(() => {
+      //перед закрытием попапа убираем текст "Сохранение..." с кнопки
+      popupUserElement.rollbackButtonText('Сохранить')
+      popupUserElement.close();
+    })
 });
 popupUserElement.setEventListeners();
 //выбираем кнопку редактирования ИНФОРМАЦИИ О ПОЛЬЗОВАТЕЛЕ и навешиваем на нее слушатель открытия попапа с формой
 const profileButton = document.querySelector('.profile__edit-btn');
 profileButton.addEventListener('click', () => {
-    userInfo.getUserInfo()
-        .then((res) => {
-            popupUserElement.open(res);
-            formValidators[popupUserElement.formElement.getAttribute('name')].disableAllErrors();
-        })
-        .catch((err) => console.log(`Ошибка ${err.status}`));
+  userInfo.getUserInfo()
+    .then((res) => {
+      popupUserElement.open(res);
+      formValidators[popupUserElement.formElement.getAttribute('name')].disableAllErrors();
+    })
+    .catch((err) => console.log(`Ошибка ${err.status}`));
 })
 
 //создаем элемент попапа с формой редактирования АВАТАРА и передаем колбэк с АПИ
 const popupAvatarElement = new PopupWithForm('.popup_avatar-edit', (userData) => {
-    api.updateUserAvatar(userData)
-        .then((res) => {
-            profileAvatar.style.backgroundImage = `url(` + res.avatar + `)`;
-        })
-        .catch((err) => console.log(`Ошибка ${err.status}`))
-        .finally(() => {
-            //перед закрытием попапа убираем текст "Сохранение..." с кнопки
-            popupAvatarElement.rollbackButtonText('Сохранить')
-            popupAvatarElement.close();
-        });
+  api.updateUserAvatar(userData)
+    .then((res) => {
+      profileAvatar.style.backgroundImage = `url(` + res.avatar + `)`;
+    })
+    .catch((err) => console.log(`Ошибка ${err.status}`))
+    .finally(() => {
+      //перед закрытием попапа убираем текст "Сохранение..." с кнопки
+      popupAvatarElement.rollbackButtonText('Сохранить')
+      popupAvatarElement.close();
+    });
 });
 popupAvatarElement.setEventListeners();
 //выбираем кнопку редактирования АВАТАРА и навешиваем на нее слушатель открытия попапа с формой
 profileAvatar.addEventListener('click', () => {
-        popupAvatarElement.open();
-        formValidators[popupAvatarElement.formElement.getAttribute('name')].disableAllErrors();
+  popupAvatarElement.open();
+  formValidators[popupAvatarElement.formElement.getAttribute('name')].disableAllErrors();
 })
 
 //создаем элемент попапа с формой ДОБАВЛЕНИЯ КАРТОЧКИ
 const popupNewCardElement = new PopupWithForm('.popup_add-place', (userData) => {
-    api.postNewCard(userData)
-        .then((card) => {
-            //вызываем метод добавления карточки в контейнер, передаем ему данные карточки
-            // !!сборка карточки переехала в renderer
-            cardList.addItem(card);
-        })
-        .catch((err) => console.log(`Ошибка ${err.status}`))
-        .finally(() => {
-            //перед закрытием попапа убираем текст "Сохранение..." с кнопки
-            popupNewCardElement.rollbackButtonText('Создать')
-            popupNewCardElement.close();
-        });
+  api.postNewCard(userData)
+    .then((card) => {
+      //вызываем метод добавления карточки в контейнер, передаем ему данные карточки
+      // !!сборка карточки переехала в renderer
+      cardList.addItem(card);
+    })
+    .catch((err) => console.log(`Ошибка ${err.status}`))
+    .finally(() => {
+      //перед закрытием попапа убираем текст "Сохранение..." с кнопки
+      popupNewCardElement.rollbackButtonText('Создать')
+      popupNewCardElement.close();
+    });
 });
 popupNewCardElement.setEventListeners();
 //выбираем кнопку ДОБАВЛЕНИЯ КАРТОЧКИ и навешиваем на нее слушатель открытия попапа с формой добавления карточки
 addPlaceButton.addEventListener('click', () => {
-        popupNewCardElement.open();
-        formValidators[popupNewCardElement.formElement.getAttribute('name')].disableAllErrors();
+  popupNewCardElement.open();
+  formValidators[popupNewCardElement.formElement.getAttribute('name')].disableAllErrors();
 })
 
 //создаем элемент Section для заполнения контейнера с карточками
 const cardList = new Section(
-    /* Можно было бы сделать функцию renderer обычной функцией создания карточки (без вставки ее в DOM),
-    тогда в методе addItem можно было бы сразу создавать карточку и тут же вставлять ее в DOM.
-    Тогда в index.js не нужно было бы отдельно создавать функцию createCard, чтобы в 2х местах создавать карточки.*/
-    (item) => {
-        return new Card(item, '#card', (imgSrc, imgHeading) => {
-            popupImageElement.open(imgSrc, imgHeading);
-        }, api, authorId).createCard();
-    },
+  /* Можно было бы сделать функцию renderer обычной функцией создания карточки (без вставки ее в DOM),
+  тогда в методе addItem можно было бы сразу создавать карточку и тут же вставлять ее в DOM.
+  Тогда в index.js не нужно было бы отдельно создавать функцию createCard, чтобы в 2х местах создавать карточки.*/
+  (item) => {
+    return new Card(item, '#card', (imgSrc, imgHeading) => {
+      popupImageElement.open(imgSrc, imgHeading);
+    }, api, authorId).createCard();
+  },
   options.cardContainer);
 
 
 const loadContentFromServer = () => {
-    Promise.all([api.getProfileInfoFromServer(), api.getCards()])
-        .then(([userData, cards]) => {
-            //  console.log(userData); //TODO for debug
-            //заполняем данные о пользователе
-            userInfo.setUserInfo(userData);
-            profileAvatar.style.backgroundImage = `url(` + userData.avatar + `)`;
-            authorId = userData._id;
+  Promise.all([api.getProfileInfoFromServer(), api.getCards()])
+    .then(([userData, cards]) => {
+      //  console.log(userData); //TODO for debug
+      //заполняем данные о пользователе
+      userInfo.setUserInfo(userData);
+      profileAvatar.style.backgroundImage = `url(` + userData.avatar + `)`;
+      authorId = userData._id;
 
-            //рендерим карточки
-            cardList.renderItems(cards.reverse());
+      //рендерим карточки
+      cardList.renderItems(cards.reverse());
 
-            // console.log(cards); //TODO for debug
-        })
-        .catch(err => {
-            console.error("Couldn't load from server | " + err)
-        })
+      // console.log(cards); //TODO for debug
+    })
+    .catch(err => {
+      console.error("Couldn't load from server | " + err)
+    })
 }
 
 loadContentFromServer();
@@ -132,9 +132,9 @@ const enableValidation = (options) => {
 // получаем данные из атрибута `name` у формы
     const formName = formElement.getAttribute('name')
 
-   // вот тут в объект записываем под именем формы
+    // вот тут в объект записываем под именем формы
     formValidators[formName] = validator;
-   validator.enableValidation();
+    validator.enableValidation();
   });
 };
 
