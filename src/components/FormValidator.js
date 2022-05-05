@@ -2,6 +2,7 @@ export default class FormValidator {
   constructor (options, formElement) {
     this._options = options;
     this._formElement = formElement;
+    this._formFieldList = Array.from(this._formElement.querySelectorAll(this._options.formField));
   } 
   disableButton (buttonElement) {
     buttonElement.classList.add(this._options.inactiveButtonClass);
@@ -9,8 +10,7 @@ export default class FormValidator {
   }
 
   disableAllErrors() {
-    const formFieldsList = Array.from(this._formElement.querySelectorAll(this._options.formField));
-    formFieldsList.forEach((formField) => {
+    this._formFieldList.forEach((formField) => {
       const inputElement = formField.querySelector(this._options.inputSelector);
       this._hideInputError(inputElement);
     })
@@ -20,7 +20,7 @@ export default class FormValidator {
       this._formElement.addEventListener('submit', function (evt) {
         evt.preventDefault();
       });
-      this._setEventListeners(this._formElement);
+      this._setEventListeners();
     };
   
   _showInputError = (inputElement, errorMessage) => {
