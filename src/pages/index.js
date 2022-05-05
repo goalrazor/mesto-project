@@ -96,9 +96,9 @@ const cardList = new Section(
     (item) => {
         return new Card(item, '#card', (imgSrc, imgHeading) => {
             popupImageElement.open(imgSrc, imgHeading);
-        }).createCard();
-    }
-, options.cardContainer);
+        }, api, authorId).createCard();
+    },
+  options.cardContainer);
 
 
 const loadContentFromServer = () => {
