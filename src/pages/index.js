@@ -51,12 +51,12 @@ const popupAvatarElement = new PopupWithForm('.popup_avatar-edit', (userData) =>
   api.updateUserAvatar(userData)
     .then((res) => {
       profileAvatar.style.backgroundImage = `url(` + res.avatar + `)`;
+      popupAvatarElement.close();
     })
     .catch((err) => console.log(`Ошибка ${err.status}`))
     .finally(() => {
-      //перед закрытием попапа убираем текст "Сохранение..." с кнопки
+      //убираем текст "Сохранение..." с кнопки
       popupAvatarElement.rollbackButtonText('Сохранить')
-      popupAvatarElement.close();
     });
 });
 popupAvatarElement.setEventListeners();
@@ -73,12 +73,12 @@ const popupNewCardElement = new PopupWithForm('.popup_add-place', (userData) => 
       //вызываем метод добавления карточки в контейнер, передаем ему данные карточки
       // !!сборка карточки переехала в renderer
       cardList.addItem(card);
+      popupNewCardElement.close();
     })
     .catch((err) => console.log(`Ошибка ${err.status}`))
     .finally(() => {
-      //перед закрытием попапа убираем текст "Сохранение..." с кнопки
+      //убираем текст "Сохранение..." с кнопки
       popupNewCardElement.rollbackButtonText('Создать')
-      popupNewCardElement.close();
     });
 });
 popupNewCardElement.setEventListeners();
