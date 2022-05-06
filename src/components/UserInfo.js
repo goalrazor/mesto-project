@@ -10,10 +10,9 @@ export default class UserInfo {
     }
 
     //заполняем поля объекта данными
-    _stashUserInfo(name, about, id) {
+    _stashUserInfo(name, about) {
         this._name = name;
         this._about = about;
-        this._authorId = id;
     }
 
     setUserInfo (name, about) {
@@ -25,7 +24,8 @@ export default class UserInfo {
 
     //обработка при загрузке страницы
     setOnLoad (res) {
-        this._stashUserInfo(res.name, res.about, res._id);
+        this._authorId = res._id;
+        this._stashUserInfo(res.name, res.about);
         this.setUserInfo(this._name, this._about);
         this.setUserAvatar(res.avatar)
     }
