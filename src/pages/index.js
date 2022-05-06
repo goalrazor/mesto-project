@@ -43,7 +43,9 @@ const profileButton = document.querySelector('.profile__edit-btn');
 profileButton.addEventListener('click', () => {
     //методу открытия попапа передаем поля {name, about} объекта userInfo
     popupUserElement.open(userInfo.getUserInfo());
-    formValidators[popupUserElement.formElement.getAttribute('name')].disableAllErrors();
+    const validator = formValidators[popupUserElement.formElement.getAttribute('name')];
+    validator.disableAllErrors();
+    validator.disableButton();
 })
 
 //создаем элемент попапа с формой редактирования АВАТАРА и передаем колбэк с АПИ
@@ -63,8 +65,10 @@ const popupAvatarElement = new PopupWithForm('.popup_avatar-edit', (userData) =>
 popupAvatarElement.setEventListeners();
 //выбираем кнопку редактирования АВАТАРА и навешиваем на нее слушатель открытия попапа с формой
 profileAvatar.addEventListener('click', () => {
-  popupAvatarElement.open();
-  formValidators[popupAvatarElement.formElement.getAttribute('name')].disableAllErrors();
+    popupAvatarElement.open();
+    const validator = formValidators[popupAvatarElement.formElement.getAttribute('name')];
+    validator.disableAllErrors();
+    validator.disableButton();
 })
 
 //создаем элемент попапа с формой ДОБАВЛЕНИЯ КАРТОЧКИ
@@ -86,7 +90,9 @@ popupNewCardElement.setEventListeners();
 //выбираем кнопку ДОБАВЛЕНИЯ КАРТОЧКИ и навешиваем на нее слушатель открытия попапа с формой добавления карточки
 addPlaceButton.addEventListener('click', () => {
   popupNewCardElement.open();
-  formValidators[popupNewCardElement.formElement.getAttribute('name')].disableAllErrors();
+  const validator = formValidators[popupNewCardElement.formElement.getAttribute('name')];
+  validator.disableAllErrors();
+  validator.disableButton();
 })
 
 //создаем элемент Section для заполнения контейнера с карточками
