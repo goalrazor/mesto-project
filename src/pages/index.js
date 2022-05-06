@@ -41,12 +41,9 @@ popupUserElement.setEventListeners();
 //выбираем кнопку редактирования ИНФОРМАЦИИ О ПОЛЬЗОВАТЕЛЕ и навешиваем на нее слушатель открытия попапа с формой
 const profileButton = document.querySelector('.profile__edit-btn');
 profileButton.addEventListener('click', () => {
-    api.getProfileInfoFromServer()
-    .then((res) => {
-      popupUserElement.open(res);
-      formValidators[popupUserElement.formElement.getAttribute('name')].disableAllErrors();
-    })
-    .catch((err) => console.log(`Ошибка ${err.status}`));
+    //методу открытия попапа передаем поля {name, about} объекта userInfo
+    popupUserElement.open(userInfo.getUserInfo());
+    formValidators[popupUserElement.formElement.getAttribute('name')].disableAllErrors();
 })
 
 //создаем элемент попапа с формой редактирования АВАТАРА и передаем колбэк с АПИ
@@ -109,7 +106,7 @@ const loadContentFromServer = () => {
   Promise.all([api.getProfileInfoFromServer(), api.getCards()])
     .then(([userData, cards]) => {
       //  console.log(userData); //TODO for debug
-      //выкатываем на страницу данные о пользователе и аватар из ответа сервера
+      //заполняем объект userInfo данными о пользователе, выкатываем их на страницу
       userInfo.setOnLoad(userData);
       //рендерим карточки
       cardList.renderItems(cards.reverse());

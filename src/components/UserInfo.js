@@ -9,19 +9,33 @@ export default class UserInfo {
         this.userAvatarElement.style.backgroundImage = `url(` + avatarLink + `)`;
     }
 
-    setUserInfo (name, about) {
-        this.userNameElement.textContent = name;
-        this.userAboutElement.textContent = about;
+    //заполняем поля объекта данными
+    _stashUserInfo(name, about, id) {
+        this._name = name;
+        this._about = about;
+        this._authorId = id;
     }
 
+    setUserInfo (name, about) {
+        //обновляем измененные поля объекта
+        this._stashUserInfo(name, about)
+        this.userNameElement.textContent = this._name;
+        this.userAboutElement.textContent = this._about;
+    }
+
+    //обработка при загрузке страницы
     setOnLoad (res) {
-        this.setUserInfo(res.name, res.about);
+        this._stashUserInfo(res.name, res.about, res._id);
+        this.setUserInfo(this._name, this._about);
         this.setUserAvatar(res.avatar)
-        this.authorId = res._id;
     }
 
     getAuthorId() {
-        return this.authorId;
+        return this._authorId;
+    }
+
+    getUserInfo() {
+        return {name: this._name, about: this._about};
     }
 }
 
