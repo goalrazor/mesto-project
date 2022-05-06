@@ -1,25 +1,28 @@
-import {config} from "../utils/constants";
-import Api from "./Api";
-
 export default class UserInfo {
-    constructor(nameSelector, aboutSelector) {
+    constructor(nameSelector, aboutSelector, avatarSelector) {
         this.userNameElement = document.querySelector(nameSelector);
         this.userAboutElement = document.querySelector(aboutSelector);
-        this._api = new Api(config);
+        this.userAvatarElement = document.querySelector(avatarSelector);
     }
 
-    getUserInfo() {
-        return this._api.getProfileInfoFromServer()
+    setUserAvatar(avatarLink) {
+        this.userAvatarElement.style.backgroundImage = `url(` + avatarLink + `)`;
     }
 
-    setUserInfo (userData) {
-        //finally уехал в индекс что бы закрыть не видный отсюда попап
-        return this._api.updateUserInfo(userData)
-            .then((res) => {
-                this.userNameElement.textContent = res.name;
-                this.userAboutElement.textContent = res.about;
-            })
-            .catch((err) => console.log(`Ошибка ${err.status}`));
+    setUserInfo (name, about) {
+        this.userNameElement.textContent = name;
+        this.userAboutElement.textContent = about;
+    }
+
+    setOnLoad (res) {
+        this.setUserInfo(res.name, res.about);
+        this.setUserAvatar(res.avatar)
+        this.authorId = res._id;
+    }
+
+    getAuthorId() {
+        return this.authorId;
     }
 }
+
 
