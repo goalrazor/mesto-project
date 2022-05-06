@@ -1,25 +1,42 @@
-import {config} from "../utils/constants";
-import Api from "./Api";
-
 export default class UserInfo {
-    constructor(nameSelector, aboutSelector) {
+    constructor(nameSelector, aboutSelector, avatarSelector) {
         this.userNameElement = document.querySelector(nameSelector);
         this.userAboutElement = document.querySelector(aboutSelector);
-        this._api = new Api(config);
+        this.userAvatarElement = document.querySelector(avatarSelector);
+    }
+
+    setUserAvatar(avatarLink) {
+        this.userAvatarElement.style.backgroundImage = `url(` + avatarLink + `)`;
+    }
+
+    //заполняем поля объекта данными
+    _stashUserInfo(name, about, id) {
+        this._name = name;
+        this._about = about;
+        this._authorId = id;
+    }
+
+    setUserInfo (name, about) {
+        //обновляем измененные поля объекта
+        this._stashUserInfo(name, about)
+        this.userNameElement.textContent = this._name;
+        this.userAboutElement.textContent = this._about;
+    }
+
+    //обработка при загрузке страницы
+    setOnLoad (res) {
+        this._stashUserInfo(res.name, res.about, res._id);
+        this.setUserInfo(this._name, this._about);
+        this.setUserAvatar(res.avatar)
+    }
+
+    getAuthorId() {
+        return this._authorId;
     }
 
     getUserInfo() {
-        return this._api.getProfileInfoFromServer()
-    }
-
-    setUserInfo (userData) {
-        //finally уехал в индекс что бы закрыть не видный отсюда попап
-        return this._api.updateUserInfo(userData)
-            .then((res) => {
-                this.userNameElement.textContent = res.name;
-                this.userAboutElement.textContent = res.about;
-            })
-            .catch((err) => console.log(`Ошибка ${err.status}`));
+        return {name: this._name, about: this._about};
     }
 }
+
 

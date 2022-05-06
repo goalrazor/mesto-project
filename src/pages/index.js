@@ -12,7 +12,6 @@ const profileSection = document.querySelector('.profile');
 
 export const profileAvatar = profileSection.querySelector('.profile__avatar')
 export const addPlaceButton = document.querySelector('.profile__add-btn');
-export let authorId = '';
 
 const api = new Api(config)
 
@@ -22,35 +21,37 @@ const popupImageElement = new PopupWithImage('.fullscreen-view');
 popupImageElement.setEventListeners();
 
 //создаем объект ИНФОРМАЦИИ О ПОЛЬЗОВАТЕЛЕ
-const userInfo = new UserInfo('.profile__name', '.profile__desc');
+const userInfo = new UserInfo('.profile__name', '.profile__desc', '.profile__avatar');
 
 //создаем элемент попапа с формой редактирования ИНФОРМАЦИИ О ПОЛЬЗОВАТЕЛЕ и передаем колбэк с АПИ
 const popupUserElement = new PopupWithForm('.popup_edit-profile', (userData) => {
-  userInfo.setUserInfo(userData)
-    //функция возвращает цепочку промисов из userInfo, по завершению цепочки закрываем попап
-    .finally(() => {
-      //перед закрытием попапа убираем текст "Сохранение..." с кнопки
-      popupUserElement.rollbackButtonText('Сохранить')
-      popupUserElement.close();
-    })
+    //отправляем запрос на обновление информации о пользователе
+    api.updateUserInfo(userData)
+        .then((res) => {
+            //устаналиваем на страницу новые данные из ответа
+            userInfo.setUserInfo(res.name, res.about);
+            popupUserElement.close();
+        })
+        .finally(() => {
+            //перед закрытием попапа убираем текст "Сохранение..." с кнопки
+            popupUserElement.rollbackButtonText('Сохранить');
+        })
 });
 popupUserElement.setEventListeners();
 //выбираем кнопку редактирования ИНФОРМАЦИИ О ПОЛЬЗОВАТЕЛЕ и навешиваем на нее слушатель открытия попапа с формой
 const profileButton = document.querySelector('.profile__edit-btn');
 profileButton.addEventListener('click', () => {
-  userInfo.getUserInfo()
-    .then((res) => {
-      popupUserElement.open(res);
-      formValidators[popupUserElement.formElement.getAttribute('name')].disableAllErrors();
-    })
-    .catch((err) => console.log(`Ошибка ${err.status}`));
+    //методу открытия попапа передаем поля {name, about} объекта userInfo
+    popupUserElement.open(userInfo.getUserInfo());
+    formValidators[popupUserElement.formElement.getAttribute('name')].disableAllErrors();
 })
 
 //создаем элемент попапа с формой редактирования АВАТАРА и передаем колбэк с АПИ
 const popupAvatarElement = new PopupWithForm('.popup_avatar-edit', (userData) => {
   api.updateUserAvatar(userData)
     .then((res) => {
-      profileAvatar.style.backgroundImage = `url(` + res.avatar + `)`;
+      //заменяем аватар пользователя, в метод передается ссылка на изображение из ответа сервера
+      userInfo.setUserAvatar(res.avatar);
       popupAvatarElement.close();
     })
     .catch((err) => console.log(`Ошибка ${err.status}`))
@@ -96,7 +97,7 @@ const cardList = new Section(
   (item) => {
     return new Card(item, '#card', (imgSrc, imgHeading) => {
       popupImageElement.open(imgSrc, imgHeading);
-    }, api, authorId).createCard();
+    }, api, userInfo.getAuthorId()).createCard();
   },
   options.cardContainer);
 
@@ -105,14 +106,10 @@ const loadContentFromServer = () => {
   Promise.all([api.getProfileInfoFromServer(), api.getCards()])
     .then(([userData, cards]) => {
       //  console.log(userData); //TODO for debug
-      //заполняем данные о пользователе
-      userInfo.setUserInfo(userData);
-      profileAvatar.style.backgroundImage = `url(` + userData.avatar + `)`;
-      authorId = userData._id;
-
+      //заполняем объект userInfo данными о пользователе, выкатываем их на страницу
+      userInfo.setOnLoad(userData);
       //рендерим карточки
       cardList.renderItems(cards.reverse());
-
       // console.log(cards); //TODO for debug
     })
     .catch(err => {
